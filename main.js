@@ -60,7 +60,7 @@ document.querySelectorAll('.project-card, .about-text').forEach(el => {
 const projectsData = {
     'ila': {
         title: 'ILA COMMUNITY',
-        windowTitle: 'ILA_COMMUNITY.APK',
+        windowTitle: 'ILA_SOURCE.APK',
         image: 'Reason party 2.jpg',
         description: 'ILA Community is a dedicated event management and engagement platform designed for the Mizo community. It serves as a central hub for cultural events, local news, and community support systems.',
         tags: ['#REACT_NATIVE', '#FIREBASE', '#RAZORPAY'],
@@ -77,7 +77,7 @@ const projectsData = {
     },
     'anatomypro': {
         title: 'NOVA',
-        windowTitle: 'NOVA.EXE',
+        windowTitle: 'NOVA_SYSTEM.EXE',
         image: 'anatomy_pulse.png',
         description: 'AnatomyPro transforms habit tracking into a visual journey. By mapping daily disciplines to a digital anatomy model, users can literally see their "growth" as different muscle groups and organs glow or change color based on session consistency.',
         tags: ['#SVG_ANIMATION', '#HABIT_TECH', '#TSX'],
@@ -94,7 +94,7 @@ const projectsData = {
     },
     'spam-remover': {
         title: 'GMAIL SPAM REMOVER',
-        windowTitle: 'GMAIL_SPAM_REMOVER.PY',
+        windowTitle: 'SPAM_FILTER.PY',
         image: 'Reason party 2.jpg',
         description: 'A professional-grade inbox hygiene tool that applies corporate-level security filters to personal Gmail accounts. It identifies and segregates sophisticated phishing and marketing spam that standard filters often miss.',
         tags: ['#MACHINE_LEARNING', '#SCIKIT_LEARN', '#OAUTH2'],
@@ -111,7 +111,7 @@ const projectsData = {
     },
     'inbawk': {
         title: 'INBAWK CARDS',
-        windowTitle: 'INBAWK_CARDS.APK',
+        windowTitle: 'INBAWK_BUILD.APK',
         image: 'inbawk_board.png',
         description: 'INBAWK brings the high-stakes atmosphere of a professional card room to mobile. It is designed for the Mizo community to enjoy classic and custom card games in a premium, real-time environment.',
         tags: ['#GAMING', '#REALTIME_SYNC', '#LANDSCAPE_UI'],
