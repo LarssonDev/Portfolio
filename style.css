@@ -814,4 +814,148 @@ footer {
         padding: 10px 15px;
         font-size: 0.85rem;
     }
+}/* BUILD FORM STYLES */
+.build-section {
+    padding: 100px 40px;
+    background: var(--bg-blue);
+    border-top: 4px solid var(--border-black);
+    position: relative;
+    overflow: hidden;
+    /* Fun background pattern */
+    background-image: radial-gradient(var(--border-black) 1px, transparent 1px);
+    background-size: 20px 20px;
+}
+
+.sticker-container {
+    pointer-events: none;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+.sticker-build-1 {
+    position: absolute;
+    top: 10%;
+    left: 10%;
+    background: var(--bg-yellow);
+    padding: 10px 20px;
+    border: 3px solid var(--border-black);
+    transform: rotate(-12deg);
+    font-weight: 900;
+    box-shadow: 4px 4px 0px var(--border-black);
+    z-index: 1;
+}
+
+.sticker-build-2 {
+    position: absolute;
+    bottom: 15%;
+    right: 5%;
+    background: var(--bg-magenta);
+    color: white;
+    padding: 15px 30px;
+    border: 3px solid var(--border-black);
+    transform: rotate(8deg);
+    font-weight: 900;
+    box-shadow: 6px 6px 0px var(--border-black);
+    z-index: 1;
+    font-size: 1.2rem;
+}
+
+.form-window {
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+    box-shadow: 12px 12px 0px var(--border-black);
+    border: 4px solid var(--border-black);
+}
+
+.input-group {
+    margin-bottom: 25px;
+}
+
+.input-group label {
+    display: block;
+    font-weight: 900;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+}
+
+.input-group input,
+.input-group textarea,
+.input-group select {
+    width: 100%;
+    padding: 15px;
+    border: 3px solid var(--border-black);
+    font-family: var(--font-body);
+    font-size: 1rem;
+    background: #fff;
+    box-shadow: 4px 4px 0px var(--border-black);
+    outline: none;
+    border-radius: 0;
+    transition: all 0.2s;
+}
+
+.input-group input:focus,
+.input-group textarea:focus,
+.input-group select:focus {
+    background: #fff;
+    box-shadow: 6px 6px 0px var(--bg-magenta);
+    transform: translate(-2px, -2px);
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 20px;
+    background: var(--bg-yellow);
+    border: 3px solid var(--border-black);
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    cursor: pointer;
+    box-shadow: 6px 6px 0px var(--border-black);
+    transition: all 0.2s;
+}
+
+.submit-btn:hover {
+    transform: translate(-3px, -3px);
+    box-shadow: 10px 10px 0px var(--border-black);
+    background: var(--bg-green);
+    color: black;
+}
+
+#status-msg {
+    margin-top: 30px;
+    padding: 20px;
+    border: 3px solid var(--border-black);
+    display: none;
+    font-weight: 800;
+    text-align: center;
+    background: white;
+    box-shadow: 4px 4px 0px var(--border-black);
+}
+
+@media (max-width: 480px) {
+    .build-section {
+        padding: 60px 20px;
+    }
+
+    .sticker-build-1 {
+        top: 2%;
+        left: 2%;
+        font-size: 0.8rem;
+        padding: 5px 10px;
+    }
+
+    .sticker-build-2 {
+        bottom: 5%;
+        right: 2%;
+        font-size: 0.8rem;
+        padding: 5px 10px;
+        transform: rotate(-5deg);
+    }
 }
