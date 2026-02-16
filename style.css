@@ -761,7 +761,8 @@ footer {
 
     .section-title {
         font-size: 1.6rem;
-        white-space: nowrap;
+        white-space: normal;
+        word-break: break-all;
     }
 
     .site-intro {
@@ -780,6 +781,8 @@ footer {
 
     .window-content {
         padding: 12px;
+        overflow-wrap: break-word;
+        word-wrap: break-word;
     }
 
     .window-controls {
