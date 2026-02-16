@@ -61,7 +61,7 @@ const projectsData = {
     'ila': {
         title: 'ILA COMMUNITY',
         windowTitle: 'ILA_SOURCE.APK',
-        image: 'Reason party 2.jpg',
+        image: 'icon.png',
         description: 'ILA Community is a dedicated event management and engagement platform designed for the Mizo community. It serves as a central hub for cultural events, local news, and community support systems.',
         tags: ['#REACT_NATIVE', '#FIREBASE', '#RAZORPAY'],
         features: [
@@ -89,7 +89,13 @@ const projectsData = {
             'Custom positioning tool for precise overlay alignment'
         ],
         technical: 'The core engine uses React Native Skia for high-performance SVG manipulation. A custom coordinate mapping system ensures overlays align perfectly across different screen aspects. State management is handled through a combination of Context API and persistent local storage.',
-        screenshots: ['anatomy_pulse.png', 'anatomy_full.png'],
+        screenshots: [
+            { src: 'nova_screens/nova_dashboard.jpg', caption: 'NOVA_DASHBOARD: Visual overview of habit progress using a custom anatomy heat-map.' },
+            { src: 'nova_screens/nova_tasks.jpg', caption: 'HABIT_CALENDAR: Monthly tracking view integrated with daily task checklists.' },
+            { src: 'nova_screens/nova_analytics_2.jpg', caption: 'PERFORMANCE_VELOCITY: Real-time tracking of habit completion rates and weekly trends.' },
+            { src: 'nova_screens/nova_analytics_1.jpg', caption: 'SYSTEM_BALANCE: Granular analysis of physical growth across major muscle groups.' },
+            { src: 'nova_screens/nova_config.jpg', caption: 'SYSTEM_CONFIG: Advanced local storage management and session control.' }
+        ],
         apk: '#'
     },
     'spam-remover': {
@@ -168,11 +174,33 @@ function initProjectDetail() {
 
     // Load Screenshots
     const gallery = document.getElementById('project-gallery');
-    project.screenshots.forEach(src => {
+    project.screenshots.forEach(screenshot => {
+        const item = document.createElement('div');
+        item.className = 'screenshot-item';
+        item.style.marginBottom = '30px';
+
         const img = document.createElement('img');
-        img.src = src;
+        img.src = typeof screenshot === 'string' ? screenshot : screenshot.src;
         img.alt = 'Screenshot';
-        gallery.appendChild(img);
+        img.style.width = '100%';
+        img.style.border = '3px solid var(--border-black)';
+        img.style.boxShadow = '5px 5px 0px var(--border-black)';
+
+        item.appendChild(img);
+
+        if (typeof screenshot === 'object' && screenshot.caption) {
+            const caption = document.createElement('p');
+            caption.textContent = screenshot.caption;
+            caption.style.marginTop = '10px';
+            caption.style.fontSize = '0.9rem';
+            caption.style.fontStyle = 'italic';
+            caption.style.color = '#555';
+            caption.style.borderLeft = '3px solid var(--bg-magenta)';
+            caption.style.paddingLeft = '10px';
+            item.appendChild(caption);
+        }
+
+        gallery.appendChild(item);
     });
 
     // APK Section
