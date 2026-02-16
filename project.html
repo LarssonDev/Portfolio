@@ -103,20 +103,36 @@
 
         .gallery {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
+            grid-template-columns: 1fr;
+            gap: 30px;
             margin-top: 40px;
+        }
+
+        .gallery-item {
+            background: white;
+            border: 3px solid var(--border-black);
+            box-shadow: 6px 6px 0px var(--border-black);
+            overflow: hidden;
         }
 
         .gallery img {
             width: 100%;
             height: auto;
-            border: 3px solid var(--border-black);
+            border-bottom: 3px solid var(--border-black);
             transition: transform 0.2s;
+            display: block;
+        }
+
+        .gallery-caption {
+            padding: 15px;
+            background: #f9f9f9;
+            font-size: 0.95rem;
+            font-weight: 600;
+            line-height: 1.6;
         }
 
         .gallery img:hover {
-            transform: scale(1.05);
+            transform: scale(1.02);
         }
 
         .apk-download {
@@ -176,19 +192,22 @@
 
             .gallery {
                 display: flex;
-                overflow-x: auto;
-                scroll-snap-type: x mandatory;
-                gap: 15px;
-                padding-bottom: 15px;
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .gallery-item {
+                box-shadow: 4px 4px 0px var(--border-black);
             }
 
             .gallery img {
-                flex: 0 0 85%;
                 height: auto;
-                max-height: 60vh;
-                object-fit: contain;
-                scroll-snap-align: center;
-                border: 2px solid var(--border-black);
+                max-height: none;
+            }
+
+            .gallery-caption {
+                padding: 12px;
+                font-size: 0.9rem;
             }
 
             .project-description h2 {
