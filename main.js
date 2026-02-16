@@ -210,4 +210,88 @@ function initProjectDetail() {
     }
 }
 
+
+// --- FIREBASE_BUILD_ENGINE ---
+// NOTE: USER must paste their Firebase Config here eventually.
+// Using standard script import in HTML is recommended, but we define the logic here.
+let db;
+
+async function initFirebase() {
+    // Placeholder for Firebase initialization logic
+    // Users will need to include the Firebase SDK in their HTML files
+    console.log('BUILD_ENGINE: CONNECTING_TO_SERVICES...');
+    // if (window.firebase) { db = firebase.firestore(); }
+}
+
+async function submitBuildRequest(proposal) {
+    console.log('BUILD_ENGINE: UPLOADING_PROPOSAL...', proposal);
+    // In a real scenario, this would be:
+    // await db.collection('proposals').add(proposal);
+
+    // Simulate API delay
+    return new Promise(resolve => setTimeout(() => resolve(true), 1500));
+}
+
+async function initAdminDashboard() {
+    const list = document.getElementById('proposals-list');
+    const status = document.getElementById('admin-status');
+
+    status.textContent = 'MONITORING_INCOMING_SIGNALS...';
+
+    // Mock data for demonstration until Firebase is fully wired
+    const mockProposals = [
+        { id: '1', client: 'TECH_GURU_INC', type: 'data-science', budget: '$5,000', requirements: 'Predictive analytics for customer churn using LSTM models.', status: 'PENDING' },
+        { id: '2', client: 'STARTUP_X', type: 'app-dev', budget: '$2,500', requirements: 'MVP for a niche social network focused on Mizo culture.', status: 'ACCEPTED' }
+    ];
+
+    renderProposals(mockProposals);
+}
+
+function renderProposals(proposals) {
+    const list = document.getElementById('proposals-list');
+    list.innerHTML = '';
+
+    proposals.forEach(p => {
+        const card = document.createElement('div');
+        card.className = `window proposal-card ${p.status.toLowerCase()}`;
+        card.innerHTML = `
+            <div class="window-header">
+                <span class="window-title">PROPOSAL_ID_${p.id}.JSON</span>
+            </div>
+            <div class="window-content">
+                <div class="proposal-meta">
+                    <span>CLIENT: ${p.client}</span>
+                    <span>TYPE: ${p.type.toUpperCase()}</span>
+                </div>
+                <div class="proposal-details">
+                    <h3>REQUEST: ${p.budget}</h3>
+                    <p>${p.requirements}</p>
+                    <div class="status-badge">STATUS: ${p.status}</div>
+                </div>
+                <div class="admin-actions">
+                    <button class="admin-btn btn-accept" onclick="updateProposalStatus('${p.id}', 'ACCEPTED')">ACCEPT</button>
+                    <button class="admin-btn btn-decline" onclick="updateProposalStatus('${p.id}', 'DECLINED')">DECLINE</button>
+                </div>
+            </div>
+        `;
+        list.appendChild(card);
+    });
+}
+
+window.updateProposalStatus = (id, status) => {
+    console.log(`BUILD_ENGINE: UPDATING_STATUS [${id}] -> ${status}`);
+    // Real logic: db.collection('proposals').doc(id).update({ status });
+    alert(`PROPOSAL [${id}] MARKED AS ${status}`);
+    // Re-render local state for visual feedback
+    const cards = document.querySelectorAll('.proposal-card');
+    cards.forEach(card => {
+        if (card.querySelector('.window-title').textContent.includes(id)) {
+            card.className = `window proposal-card ${status.toLowerCase()}`;
+            card.querySelector('.status-badge').textContent = `STATUS: ${status}`;
+        }
+    });
+};
+
+initFirebase();
+
 console.log('DATA_SCIENCE_SUITE_INITIALIZED');

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADMIN_DASHBOARD | LARSSON.DS</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=Syne:wght@400..800&display=swap"
+        rel="stylesheet">
+    <style>
+        .admin-page {
+            max-width: 1000px;
+            margin: 60px auto;
+            padding: 20px;
+        }
+
+        .proposal-card {
+            margin-bottom: 30px;
+            transition: transform 0.2s;
+        }
+
+        .proposal-card.accepted {
+            border-color: var(--bg-green);
+        }
+
+        .proposal-card.declined {
+            border-color: var(--bg-magenta);
+            opacity: 0.7;
+        }
+
+        .proposal-meta {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 2px solid var(--border-black);
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+            font-family: var(--font-body);
+            font-weight: 700;
+            font-size: 0.8rem;
+        }
+
+        .proposal-details h3 {
+            margin-bottom: 10px;
+            font-size: 1.4rem;
+        }
+
+        .proposal-details p {
+            font-size: 1rem;
+            line-height: 1.5;
+            background: #eee;
+            padding: 15px;
+            border: 2px solid var(--border-black);
+        }
+
+        .admin-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .admin-btn {
+            padding: 12px 25px;
+            border: 3px solid var(--border-black);
+            font-weight: 900;
+            cursor: pointer;
+            box-shadow: 4px 4px 0px var(--border-black);
+            text-transform: uppercase;
+        }
+
+        .btn-accept {
+            background: var(--bg-green);
+        }
+
+        .btn-decline {
+            background: var(--bg-magenta);
+            color: white;
+        }
+
+        .admin-btn:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0px var(--border-black);
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            background: var(--border-black);
+            color: white;
+            font-size: 0.7rem;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="cursor"></div>
+
+    <header class="navbar">
+        <div class="logo">ADMIN.MODE</div>
+        <nav>
+            <a href="index.html" class="nav-link">LIVE_SITE</a>
+        </nav>
+    </header>
+
+    <main class="admin-page">
+        <h1>PROPOSAL_COMMAND_CENTER</h1>
+        <div id="admin-status" class="site-intro">RETRIVING_ENCRYPTED_SIGNALS...</div>
+
+        <div id="proposals-list">
+            <!-- Cards will be injected here -->
+        </div>
+    </main>
+
+    <script src="main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (typeof initAdminDashboard === 'function') {
+                initAdminDashboard();
+            } else {
+                document.getElementById('admin-status').textContent = 'SYSTEM_ERROR: BACKEND_NOT_FOUND (DEV_MODE)';
+            }
+        });
+    </script>
+</body>
+
+</html>

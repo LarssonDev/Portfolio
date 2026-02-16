@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BUILD_REQUEST | LARSSON.DS</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=Syne:wght@400..800&display=swap"
+        rel="stylesheet">
+    <style>
+        .request-page {
+            max-width: 800px;
+            margin: 60px auto;
+            padding: 20px;
+        }
+
+        .form-window {
+            margin-top: 30px;
+        }
+
+        .input-group {
+            margin-bottom: 25px;
+        }
+
+        .input-group label {
+            display: block;
+            font-weight: 900;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+        }
+
+        .input-group input,
+        .input-group textarea,
+        .input-group select {
+            width: 100%;
+            padding: 15px;
+            border: 3px solid var(--border-black);
+            font-family: var(--font-body);
+            font-size: 1rem;
+            background: #fff;
+            box-shadow: 4px 4px 0px var(--border-black);
+            outline: none;
+        }
+
+        .input-group input:focus,
+        .input-group textarea:focus {
+            background: #fdfdfd;
+            box-shadow: 6px 6px 0px var(--bg-magenta);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 20px;
+            background: var(--bg-yellow);
+            border: 3px solid var(--border-black);
+            font-family: var(--font-heading);
+            font-weight: 800;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            cursor: pointer;
+            box-shadow: 6px 6px 0px var(--border-black);
+            transition: all 0.2s;
+        }
+
+        .submit-btn:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 8px 8px 0px var(--border-black);
+            background: var(--bg-magenta);
+            color: white;
+        }
+
+        #status-msg {
+            margin-top: 30px;
+            padding: 20px;
+            border: 3px solid var(--border-black);
+            display: none;
+            font-weight: 800;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="cursor"></div>
+
+    <header class="navbar">
+        <div class="logo">LARSSON.DS</div>
+        <nav>
+            <a href="index.html" class="nav-link">BACK_TO_HOME</a>
+        </nav>
+    </header>
+
+    <main class="request-page">
+        <h1>BUILD_FOR_YOU</h1>
+        <p class="site-intro">Define your vision below. I process every proposal through my technical stack to determine
+            feasibility and alignment. High-impact projects prioritized.</p>
+
+        <div class="window form-window">
+            <div class="window-header">
+                <span class="window-title">PROPOSAL_SUBMISSION.CSS</span>
+            </div>
+            <div class="window-content">
+                <form id="build-form">
+                    <div class="input-group">
+                        <label>CLIENT_IDENTIFIER (NAME/ORG)</label>
+                        <input type="text" id="client-name" placeholder="E.G. LARSSON_STUDIO" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label>PROJECT_DOMAIN</label>
+                        <select id="project-type" required>
+                            <option value="">SELECT_DOMAIN</option>
+                            <option value="data-science">DATA_SCIENCE / AI</option>
+                            <option value="app-dev">MOBILE_APP (REACT_NATIVE)</option>
+                            <option value="web-dev">WEB_PLATFORM</option>
+                            <option value="automation">WORKFLOW_AUTOMATION</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label>MISSION_RESOURCES (BUDGET_ESTIMATE)</label>
+                        <input type="text" id="budget" placeholder="E.G. $1,000 - $5,000" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label>OPERATIONAL_INTENT (REQUIREMENTS)</label>
+                        <textarea id="requirements" rows="6"
+                            placeholder="DESCRIBE THE CORE LOGIC AND DESIRED OUTCOME..." required></textarea>
+                    </div>
+
+                    <button type="submit" class="submit-btn" id="submit-btn">UPLOAD_PROPOSAL.EXE</button>
+                </form>
+
+                <div id="status-msg"></div>
+            </div>
+        </div>
+    </main>
+
+    <script src="main.js"></script>
+    <script>
+        document.getElementById('build-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('submit-btn');
+            const status = document.getElementById('status-msg');
+
+            btn.textContent = 'UPLOADING_LOGIC...';
+            btn.disabled = true;
+
+            const proposal = {
+                client: document.getElementById('client-name').value,
+                type: document.getElementById('project-type').value,
+                budget: document.getElementById('budget').value,
+                requirements: document.getElementById('requirements').value,
+                timestamp: new Date().toISOString(),
+                status: 'PENDING'
+            };
+
+            // Attempt to send via central main.js logic
+            if (typeof submitBuildRequest === 'function') {
+                const success = await submitBuildRequest(proposal);
+                if (success) {
+                    status.style.display = 'block';
+                    status.style.background = 'var(--bg-green)';
+                    status.textContent = 'PROPOSAL_LOCKED_IN. I WILL REVIEW AND ASCEND.';
+                    document.getElementById('build-form').style.display = 'none';
+                } else {
+                    status.style.display = 'block';
+                    status.style.background = 'var(--bg-magenta)';
+                    status.style.color = 'white';
+                    status.textContent = 'ERROR: SYSTEM_OFFLINE. EMAIL ME DIRECTLY.';
+                    btn.disabled = false;
+                    btn.textContent = 'RETRY_UPLOAD.EXE';
+                }
+            } else {
+                console.error('Firebase logic not yet initialized in main.js');
+                status.style.display = 'block';
+                status.style.background = 'var(--bg-magenta)';
+                status.style.color = 'white';
+                status.textContent = 'DEVELOPMENT_MODE: LOGIC_PENDING.';
+                btn.disabled = false;
+                btn.textContent = 'RETRY_UPLOAD.EXE';
+            }
+        });
+    </script>
+</body>
+
+</html>
