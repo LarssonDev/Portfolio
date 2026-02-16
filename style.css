@@ -89,6 +89,32 @@ h3 {
     box-shadow: 3px 3px 0px var(--border-black);
 }
 
+.site-intro {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--border-black);
+    margin-bottom: 30px;
+    border-bottom: 3px solid var(--border-black);
+    padding-bottom: 20px;
+    line-height: 1.8;
+    text-align: left;
+}
+
+.intro-tag {
+    background: var(--bg-yellow);
+    padding: 2px 8px;
+    border: 2px solid var(--border-black);
+    margin-right: 8px;
+    font-size: 0.8rem;
+    vertical-align: middle;
+    font-weight: 800;
+}
+
+.intro-highlight {
+    color: var(--bg-magenta);
+    font-weight: 800;
+}
+
 /* Layout */
 header {
     display: flex;
@@ -692,6 +718,11 @@ footer {
     .section-title {
         font-size: 1.6rem;
         white-space: nowrap;
+    }
+
+    .site-intro {
+        font-size: 0.95rem;
+        line-height: 1.6;
     }
 
     .logo {
