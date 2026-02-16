@@ -174,29 +174,20 @@ function initProjectDetail() {
 
     // Load Screenshots
     const gallery = document.getElementById('project-gallery');
+    // Screenshots Gallery
     project.screenshots.forEach(screenshot => {
         const item = document.createElement('div');
-        item.className = 'screenshot-item';
-        item.style.marginBottom = '30px';
+        item.className = 'gallery-item';
 
         const img = document.createElement('img');
         img.src = typeof screenshot === 'string' ? screenshot : screenshot.src;
-        img.alt = 'Screenshot';
-        img.style.width = '100%';
-        img.style.border = '3px solid var(--border-black)';
-        img.style.boxShadow = '5px 5px 0px var(--border-black)';
-
+        img.alt = screenshot.caption || 'Project Screenshot';
         item.appendChild(img);
 
         if (typeof screenshot === 'object' && screenshot.caption) {
-            const caption = document.createElement('p');
+            const caption = document.createElement('div');
+            caption.className = 'gallery-caption';
             caption.textContent = screenshot.caption;
-            caption.style.marginTop = '10px';
-            caption.style.fontSize = '0.9rem';
-            caption.style.fontStyle = 'italic';
-            caption.style.color = '#555';
-            caption.style.borderLeft = '3px solid var(--bg-magenta)';
-            caption.style.paddingLeft = '10px';
             item.appendChild(caption);
         }
 
