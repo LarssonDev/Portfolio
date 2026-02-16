@@ -21,7 +21,7 @@
         <nav>
             <a href="#projects" class="nav-link">PROJECTS</a>
             <a href="#tech-stack" class="nav-link">TECH_STACK</a>
-            <a href="build.html" class="nav-link">BUILD_FOR_YOU</a>
+            <a href="#build" class="nav-link">BUILD_FOR_YOU</a>
             <a href="mailto:lrtlarsson@gmail.com" class="nav-link btn-yellow">HIRE_ME.CSV</a>
         </nav>
     </header>
@@ -205,6 +205,53 @@
                             <span class="tech-item">EXPO</span>
                         </div>
                     </div>
+                </div>
+            </div>
+        </section>
+        </section>
+
+        <section id="build" class="build-section">
+            <h2 class="section-title">BUILD_FOR_YOU</h2>
+            <p class="site-intro" style="text-align: center; max-width: 800px; margin: 0 auto 40px auto;">
+                Define your vision below. I process every proposal through my technical stack to determine feasibility
+                and alignment. High-impact projects prioritized.
+            </p>
+
+            <div class="window form-window">
+                <div class="window-header">
+                    <span class="window-title">PROPOSAL_SUBMISSION.CSS</span>
+                </div>
+                <div class="window-content">
+                    <form id="build-form">
+                        <div class="input-group">
+                            <label>CLIENT_IDENTIFIER (NAME/ORG)</label>
+                            <input type="text" id="client-name" placeholder="E.G. LARSSON_STUDIO" required>
+                        </div>
+
+                        <div class="input-group">
+                            <label>PROJECT_DOMAIN</label>
+                            <select id="project-type" required>
+                                <option value="">SELECT_DOMAIN</option>
+                                <option value="web-dev">WEB_PLATFORM</option>
+                                <option value="app-dev">MOBILE_APP (REACT_NATIVE)</option>
+                            </select>
+                        </div>
+
+                        <div class="input-group">
+                            <label>MISSION_RESOURCES (BUDGET_ESTIMATE)</label>
+                            <input type="text" id="budget" placeholder="E.G. $1,000 - $5,000" required>
+                        </div>
+
+                        <div class="input-group">
+                            <label>OPERATIONAL_INTENT (REQUIREMENTS)</label>
+                            <textarea id="requirements" rows="6"
+                                placeholder="DESCRIBE THE CORE LOGIC AND DESIRED OUTCOME..." required></textarea>
+                        </div>
+
+                        <button type="submit" class="submit-btn" id="submit-btn">UPLOAD_PROPOSAL.EXE</button>
+                    </form>
+
+                    <div id="status-msg"></div>
                 </div>
             </div>
         </section>
