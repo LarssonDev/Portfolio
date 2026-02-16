@@ -686,7 +686,12 @@ footer {
     }
 
     h2 {
-        font-size: 1.5rem;
+        font-size: 1.4rem;
+    }
+
+    .section-title {
+        font-size: 1.6rem;
+        white-space: nowrap;
     }
 
     .logo {
