@@ -95,7 +95,7 @@ const projectsData = {
     'spam-remover': {
         title: 'GMAIL SPAM REMOVER',
         windowTitle: 'SPAM_FILTER.PY',
-        image: 'Reason party 2.jpg',
+        image: 'spam_remover.jpg',
         description: 'A professional-grade inbox hygiene tool that applies corporate-level security filters to personal Gmail accounts. It identifies and segregates sophisticated phishing and marketing spam that standard filters often miss.',
         tags: ['#MACHINE_LEARNING', '#SCIKIT_LEARN', '#OAUTH2'],
         features: [
