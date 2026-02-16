@@ -505,28 +505,141 @@ footer {
 }
 
 /* Responsiveness */
+@media (max-width: 1024px) {
+    .hero-container {
+        gap: 20px;
+    }
+
+    .hero-window {
+        max-width: 600px;
+    }
+}
+
 @media (max-width: 768px) {
     h1 {
-        font-size: 2.2rem;
+        font-size: 3rem;
+        word-break: break-word;
     }
 
     h2 {
-        font-size: 1.6rem;
+        font-size: 2rem;
+    }
+
+    header {
+        padding: 10px 20px;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    nav {
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
     }
 
     .hero {
-        padding: 40px 20px;
+        padding: 60px 20px;
+        min-height: auto;
+    }
+
+    .hero-container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .profile-window {
+        width: 220px;
+        transform: rotate(0deg);
+        margin-bottom: 20px;
+    }
+
+    .hero-content p {
+        font-size: 1.1rem;
+        margin: 20px auto 30px;
+    }
+
+    .hero-actions {
+        justify-content: center;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .hero-actions a {
+        width: 100%;
+        text-align: center;
     }
 
     .project-grid {
         grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .project-card img {
+        height: 250px;
     }
 
     .contact-links {
         flex-direction: column;
+        width: 100%;
+        max-width: 300px;
+        margin-left: auto;
+        margin-right: auto;
     }
 
-    .floating-box {
+    .contact-links a {
+        width: 100%;
+        text-align: center;
+    }
+
+    .floating-box,
+    .sticker-1,
+    .sticker-2,
+    .sticker-3 {
         display: none;
+    }
+
+    .sticker-4 {
+        bottom: 5px;
+        right: 5px;
+        font-size: 0.8rem;
+    }
+
+    .about {
+        padding: 60px 20px;
+    }
+
+    .about-text h2 {
+        font-size: 2rem;
+    }
+
+    .ticker span {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 2.22rem;
+    }
+
+    .logo {
+        font-size: 1.3rem;
+    }
+
+    .nav-link {
+        padding: 6px 8px;
+        font-size: 0.8rem;
+    }
+
+    .window-content {
+        padding: 15px;
+    }
+
+    .project-info {
+        padding: 20px;
+    }
+
+    .project-info h3 {
+        font-size: 1.5rem;
     }
 }

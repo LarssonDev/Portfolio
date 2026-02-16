@@ -88,12 +88,30 @@
         }
 
         @media (max-width: 768px) {
+            .detail-page {
+                padding: 40px 15px;
+            }
+
             .project-body {
                 grid-template-columns: 1fr;
+                gap: 30px;
             }
 
             .project-main-image {
                 height: 300px;
+                box-shadow: 4px 4px 0px var(--border-black);
+            }
+
+            .gallery {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery img {
+                height: 200px;
+            }
+
+            .project-description h2 {
+                font-size: 1.8rem;
             }
         }
     </style>
