@@ -155,6 +155,50 @@ nav {
     box-shadow: 3px 3px 0px var(--border-black);
 }
 
+/* Technical Stack */
+.tech-stack-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.tech-category {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.tech-category .window-content {
+    padding: 20px;
+    flex-grow: 1;
+}
+
+.tech-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.tech-item {
+    background: #f0f0f0;
+    border: 2px solid var(--border-black);
+    padding: 5px 12px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    box-shadow: 2px 2px 0px var(--border-black);
+}
+
+.tech-category h3 {
+    margin-bottom: 15px;
+    font-size: 1.4rem;
+    border-bottom: 2px solid var(--border-black);
+    padding-bottom: 10px;
+}
+
 /* Windows */
 .window {
     background: white;
