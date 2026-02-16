@@ -102,11 +102,20 @@
             }
 
             .gallery {
-                grid-template-columns: 1fr;
+                display: flex;
+                overflow-x: auto;
+                scroll-snap-type: x mandatory;
+                gap: 15px;
+                padding-bottom: 15px;
             }
 
             .gallery img {
+                flex: 0 0 85%;
                 height: auto;
+                max-height: 60vh;
+                object-fit: contain;
+                scroll-snap-align: center;
+                border: 2px solid var(--border-black);
             }
 
             .project-description h2 {

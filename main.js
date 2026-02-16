@@ -203,12 +203,51 @@ function initProjectDetail() {
         gallery.appendChild(item);
     });
 
-    // APK Section
     if (project.apk && project.apk !== '#') {
         document.getElementById('apk-section').style.display = 'block';
         document.getElementById('apk-link').href = project.apk;
     }
 }
+
+// Build Form Listener for Index Page
+document.addEventListener('DOMContentLoaded', () => {
+    const buildForm = document.getElementById('build-form');
+    if (buildForm) {
+        buildForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('submit-btn');
+            const status = document.getElementById('status-msg');
+
+            btn.textContent = 'UPLOADING_LOGIC...';
+            btn.disabled = true;
+
+            const proposal = {
+                client: document.getElementById('client-name').value,
+                type: document.getElementById('project-type').value,
+                budget: document.getElementById('budget').value,
+                requirements: document.getElementById('requirements').value,
+                timestamp: new Date().toISOString(),
+                status: 'PENDING'
+            };
+
+            const success = await submitBuildRequest(proposal);
+
+            if (success) {
+                status.style.display = 'block';
+                status.style.background = 'var(--bg-green)';
+                status.textContent = 'PROPOSAL_LOCKED_IN. I WILL REVIEW AND ASCEND.';
+                buildForm.style.display = 'none';
+            } else {
+                status.style.display = 'block';
+                status.style.background = 'var(--bg-magenta)';
+                status.style.color = 'white';
+                status.textContent = 'ERROR: SYSTEM_OFFLINE. EMAIL ME DIRECTLY.';
+                btn.disabled = false;
+                btn.textContent = 'RETRY_UPLOAD.EXE';
+            }
+        });
+    }
+});
 
 
 // --- FIREBASE_BUILD_ENGINE ---
