@@ -959,3 +959,112 @@ footer {
         transform: rotate(-5deg);
     }
 }
+/* TECHNICAL STACK SECTION STYLES */
+.tech-stack-section {
+    padding: 100px 40px;
+    background: var(--bg-yellow);
+    border-top: 4px solid var(--border-black);
+    position: relative;
+    overflow: hidden;
+    /* Fun diagonal stripes */
+    background-image: repeating-linear-gradient(45deg,
+            var(--bg-yellow),
+            var(--bg-yellow) 20px,
+            #f9d71c 20px,
+            #f9d71c 40px);
+}
+
+.sticker-tech-1 {
+    position: absolute;
+    top: 8%;
+    right: 12%;
+    background: var(--bg-magenta);
+    color: white;
+    padding: 12px 24px;
+    border: 3px solid var(--border-black);
+    transform: rotate(8deg);
+    font-weight: 900;
+    box-shadow: 5px 5px 0px var(--border-black);
+    z-index: 1;
+    font-size: 1.1rem;
+}
+
+.sticker-tech-2 {
+    position: absolute;
+    bottom: 12%;
+    left: 8%;
+    background: var(--bg-green);
+    padding: 15px 30px;
+    border: 3px solid var(--border-black);
+    transform: rotate(-10deg);
+    font-weight: 900;
+    box-shadow: 6px 6px 0px var(--border-black);
+    z-index: 1;
+    font-size: 1.3rem;
+}
+
+.tech-stack-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+    position: relative;
+    z-index: 2;
+}
+
+.tech-category {
+    transition: all 0.3s;
+}
+
+.tech-category:hover {
+    transform: translateY(-5px);
+    box-shadow: 12px 12px 0px var(--border-black);
+}
+
+.tech-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.tech-item {
+    background: var(--bg-green);
+    padding: 8px 16px;
+    border: 2px solid var(--border-black);
+    font-weight: 700;
+    font-size: 0.85rem;
+    transition: all 0.2s;
+}
+
+.tech-item:hover {
+    background: var(--bg-magenta);
+    color: white;
+    transform: scale(1.05);
+}
+
+@media (max-width: 480px) {
+    .tech-stack-section {
+        padding: 60px 20px;
+    }
+
+    .sticker-tech-1 {
+        top: 3%;
+        right: 3%;
+        font-size: 0.8rem;
+        padding: 6px 12px;
+    }
+
+    .sticker-tech-2 {
+        bottom: 5%;
+        left: 3%;
+        font-size: 0.9rem;
+        padding: 8px 16px;
+        transform: rotate(-5deg);
+    }
+
+    .tech-stack-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+}
