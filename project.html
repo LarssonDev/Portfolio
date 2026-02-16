@@ -103,36 +103,23 @@
 
         .gallery {
             display: grid;
-            grid-template-columns: 1fr;
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
             margin-top: 40px;
-        }
-
-        .gallery-item {
-            background: white;
-            border: 3px solid var(--border-black);
-            box-shadow: 6px 6px 0px var(--border-black);
-            overflow: hidden;
         }
 
         .gallery img {
             width: 100%;
             height: auto;
-            border-bottom: 3px solid var(--border-black);
-            transition: transform 0.2s;
+            border: 3px solid var(--border-black);
+            box-shadow: 4px 4px 0px var(--border-black);
+            transition: all 0.2s;
             display: block;
         }
 
-        .gallery-caption {
-            padding: 15px;
-            background: #f9f9f9;
-            font-size: 0.95rem;
-            font-weight: 600;
-            line-height: 1.6;
-        }
-
         .gallery img:hover {
-            transform: scale(1.02);
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0px var(--border-black);
         }
 
         .apk-download {

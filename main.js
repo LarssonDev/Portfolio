@@ -174,24 +174,11 @@ function initProjectDetail() {
 
     // Load Screenshots
     const gallery = document.getElementById('project-gallery');
-    // Screenshots Gallery
     project.screenshots.forEach(screenshot => {
-        const item = document.createElement('div');
-        item.className = 'gallery-item';
-
         const img = document.createElement('img');
         img.src = typeof screenshot === 'string' ? screenshot : screenshot.src;
-        img.alt = screenshot.caption || 'Project Screenshot';
-        item.appendChild(img);
-
-        if (typeof screenshot === 'object' && screenshot.caption) {
-            const caption = document.createElement('div');
-            caption.className = 'gallery-caption';
-            caption.textContent = screenshot.caption;
-            item.appendChild(caption);
-        }
-
-        gallery.appendChild(item);
+        img.alt = 'Project Screenshot';
+        gallery.appendChild(img);
     });
 
     if (project.apk && project.apk !== '#') {
