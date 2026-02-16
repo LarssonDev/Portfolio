@@ -178,23 +178,8 @@
             }
 
             .gallery {
-                display: flex;
-                flex-direction: column;
-                gap: 20px;
-            }
-
-            .gallery-item {
-                box-shadow: 4px 4px 0px var(--border-black);
-            }
-
-            .gallery img {
-                height: auto;
-                max-height: none;
-            }
-
-            .gallery-caption {
-                padding: 12px;
-                font-size: 0.9rem;
+                grid-template-columns: 1fr;
+                gap: 15px;
             }
 
             .project-description h2 {

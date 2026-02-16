@@ -129,7 +129,14 @@ const projectsData = {
             'In-game chat and community features'
         ],
         technical: 'Built on Expo with a heavy focus on landscape UI stability. The real-time synchronization is achieved through Firebase Realtime Database listener trees, ensuring all players see moves simultaneously. Custom character assets are dynamically loaded and tinted to reduce bundle size.',
-        screenshots: ['inbawk_board.png'],
+        screenshots: [
+            'inbawk/inbawk_1.jpg',
+            'inbawk/inbawk_2.jpg',
+            'inbawk/inbawk_3.jpg',
+            'inbawk/inbawk_4.jpg',
+            'inbawk/inbawk_5.jpg',
+            'inbawk/inbawk_6.jpg'
+        ],
         apk: '#'
     }
 };
