@@ -23,167 +23,282 @@
         }
 
         .detail-page {
-            padding: 60px 20px;
-            max-width: 1000px;
+            padding: 40px 20px 100px;
+            max-width: 960px;
             margin: 0 auto;
-            overflow-wrap: break-word;
-            word-wrap: break-word;
             width: 100%;
-            overflow-x: hidden;
         }
 
-        h1,
-        h2,
-        h3,
-        h4,
-        p,
-        ul,
-        li,
-        div {
-            max-width: 100%;
-            overflow-wrap: break-word;
-            word-wrap: break-word;
-        }
-
+        /* ── Back nav ── */
         .back-nav {
-            margin-bottom: 40px;
+            margin-bottom: 32px;
         }
 
-        .project-detail-window {
-            margin-top: 20px;
+        /* ── Preview window ── */
+        .preview-window {
+            margin-bottom: 36px;
+            box-shadow: 8px 8px 0 black;
         }
 
-        .project-header {
+        .preview-window .window-header {
             display: flex;
-            flex-direction: column;
-            gap: 20px;
-            margin-bottom: 40px;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        .project-main-image {
+        .preview-img {
             width: 100%;
-            height: 500px;
+            height: clamp(220px, 40vw, 480px);
             object-fit: cover;
-            border: 4px solid var(--border-black);
-            box-shadow: 8px 8px 0px var(--border-black);
+            display: block;
+            border-top: 3px solid black;
         }
 
-        .project-body {
+        /* ── Title block ── */
+        .project-title-block {
+            margin-bottom: 28px;
+        }
+
+        .project-title-block h1 {
+            font-size: clamp(2rem, 6vw, 3.8rem);
+            line-height: 1;
+            letter-spacing: -2px;
+            margin-bottom: 10px;
+        }
+
+        .project-tagline {
+            font-size: clamp(0.95rem, 2.5vw, 1.1rem);
+            color: #555;
+            font-weight: 500;
+            line-height: 1.5;
+        }
+
+        /* ── Action buttons ── */
+        .project-actions {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+            margin-bottom: 36px;
+        }
+
+        .action-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 24px;
+            font-family: var(--font-heading);
+            font-weight: 800;
+            font-size: clamp(0.75rem, 2vw, 0.9rem);
+            letter-spacing: 1px;
+            text-decoration: none;
+            border: 3px solid black;
+            transition: all 0.15s ease;
+            cursor: pointer;
+        }
+
+        .action-btn-primary {
+            background: var(--bg-yellow);
+            color: black;
+            box-shadow: 5px 5px 0 black;
+        }
+
+        .action-btn-primary:hover {
+            transform: translate(-3px, -3px);
+            box-shadow: 8px 8px 0 black;
+            background: #f5d800;
+        }
+
+        .action-btn-secondary {
+            background: #111;
+            color: var(--bg-yellow);
+            box-shadow: 5px 5px 0 #555;
+        }
+
+        .action-btn-secondary:hover {
+            transform: translate(-3px, -3px);
+            box-shadow: 8px 8px 0 #555;
+        }
+
+        /* ── Quick info panel ── */
+        .info-panel {
             display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 0;
+            border: 3px solid black;
+            box-shadow: 5px 5px 0 black;
+            margin-bottom: 48px;
+            overflow: hidden;
         }
 
-        .project-description {
-            font-size: 1.2rem;
+        .info-cell {
+            padding: 16px 20px;
+            border-right: 2px solid black;
+        }
+
+        .info-cell:last-child {
+            border-right: none;
+        }
+
+        .info-cell-label {
+            font-size: 0.65rem;
+            font-weight: 800;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: #888;
+            margin-bottom: 6px;
+        }
+
+        .info-cell-value {
+            font-family: var(--font-heading);
+            font-size: clamp(0.85rem, 2vw, 1rem);
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: -0.5px;
+        }
+
+        /* ── Section divider ── */
+        .section-loader {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 44px 0 20px;
+            font-family: var(--font-body);
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: #888;
+        }
+
+        .section-loader::before {
+            content: '▶';
+            color: var(--bg-magenta);
+            font-size: 0.6rem;
+        }
+
+        .section-loader::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: #ddd;
+        }
+
+        /* ── Overview ── */
+        .overview-text {
+            font-size: clamp(0.95rem, 2.5vw, 1.15rem);
             line-height: 1.8;
-            overflow-wrap: break-word;
-            word-wrap: break-word;
-            max-width: 100%;
+            color: #333;
         }
 
-        .project-description p,
-        .project-description ul,
-        .project-description li {
-            overflow-wrap: break-word;
-            word-wrap: break-word;
-            max-width: 100%;
-        }
-
-        .project-sidebar {
+        /* ── Features ── */
+        .features-list {
+            list-style: none;
+            padding: 0;
             display: flex;
             flex-direction: column;
-            gap: 30px;
+            gap: 10px;
         }
 
-        .sidebar-item h4 {
-            margin-bottom: 10px;
-            text-decoration: underline;
+        .features-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            font-size: clamp(0.9rem, 2vw, 1rem);
+            color: #333;
+            line-height: 1.5;
+            padding: 12px 16px;
+            background: #f8f8f8;
+            border: 2px solid #ddd;
         }
 
+        .features-list li::before {
+            content: '→';
+            font-family: var(--font-heading);
+            font-weight: 800;
+            color: var(--bg-magenta);
+            flex-shrink: 0;
+        }
+
+        /* ── Tech tags ── */
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 8px;
+        }
+
+        .tech-tag {
+            display: inline-block;
+            padding: 6px 14px;
+            border: 2px solid black;
+            font-family: var(--font-heading);
+            font-size: 0.75rem;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            background: white;
+            box-shadow: 2px 2px 0 black;
+            transition: all 0.15s ease;
+            cursor: default;
+        }
+
+        .tech-tag:hover {
+            background: var(--bg-yellow);
+            transform: translate(-1px, -1px);
+            box-shadow: 3px 3px 0 black;
+        }
+
+        /* ── Technical block ── */
+        .technical-block {
+            font-size: clamp(0.9rem, 2vw, 1rem);
+            line-height: 1.8;
+            color: #333;
+            background: #f5f5f5;
+            border: 2px solid black;
+            border-left: 5px solid var(--bg-magenta);
+            padding: 20px 24px;
+            box-shadow: 3px 3px 0 black;
+        }
+
+        /* ── Gallery ── */
         .gallery {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-            margin-top: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 16px;
+            margin-top: 8px;
         }
 
         .gallery img {
             width: 100%;
             height: auto;
-            border: 3px solid var(--border-black);
-            box-shadow: 4px 4px 0px var(--border-black);
+            border: 3px solid black;
+            box-shadow: 4px 4px 0 black;
             transition: all 0.2s;
             display: block;
         }
 
         .gallery img:hover {
-            transform: translate(-2px, -2px);
-            box-shadow: 6px 6px 0px var(--border-black);
+            transform: translate(-3px, -3px);
+            box-shadow: 7px 7px 0 black;
         }
 
-        .apk-download {
-            margin-top: 40px;
-            text-align: center;
-        }
-
-        @media (max-width: 768px) {
-
-            html,
-            body {
-                overflow-x: hidden !important;
-                max-width: 100vw !important;
+        /* ── Mobile ── */
+        @media (max-width: 600px) {
+            .project-actions {
+                flex-direction: column;
             }
 
-            * {
-                max-width: 100% !important;
+            .action-btn {
+                width: 100%;
+                justify-content: center;
             }
 
-            .detail-page {
-                padding: 40px 8px !important;
-                max-width: 100vw !important;
-                box-sizing: border-box !important;
+            .info-panel {
+                grid-template-columns: 1fr 1fr;
             }
 
-            .window-content {
-                padding: 12px 8px !important;
-                overflow-x: hidden !important;
-            }
-
-            h1 {
-                font-size: 1.6rem !important;
-                word-break: break-word !important;
-            }
-
-            h2 {
-                font-size: 1.3rem !important;
-                word-break: break-word !important;
-            }
-
-            p,
-            li,
-            span {
-                word-break: break-word !important;
-                hyphens: auto !important;
-            }
-
-            .project-body {
-                grid-template-columns: 1fr;
-                gap: 30px;
-            }
-
-            .project-main-image {
-                height: 300px;
-                box-shadow: 4px 4px 0px var(--border-black);
-            }
-
-            .gallery {
-                grid-template-columns: 1fr;
-                gap: 15px;
-            }
-
-            .project-description h2 {
-                font-size: 1.8rem;
+            .info-cell {
+                border-bottom: 2px solid black;
             }
         }
     </style>
@@ -191,83 +306,98 @@
 
 <body>
     <div class="cursor"></div>
+    <div class="cursor-trail"></div>
 
-    <header class="navbar">
-        <div class="logo">LARSSON.DS</div>
+    <header>
+        <div class="logo">LARSSON<span class="logo-dot">.</span>DS</div>
         <nav>
-            <a href="index.html" class="nav-link">BACK_TO_HOME</a>
+            <a href="index.html" class="nav-link">← HOME</a>
         </nav>
     </header>
 
     <main class="detail-page">
-        <div class="back-nav">
-            <a href="index.html" class="btn-yellow">← DISCONNECT_FROM_PROJECT</a>
-        </div>
 
-        <div id="project-container">
-            <!-- Dynamic Content Load -->
-            <div class="window project-detail-window">
-                <div class="window-header">
-                    <span id="window-title" class="window-title">LOAD_SYS.EXE</span>
-                </div>
-                <div class="window-content">
-                    <div class="project-header">
-                        <h1 id="project-title">PROJECT_TITLE</h1>
-                        <img id="project-hero-img" src="" alt="Hero Image" class="project-main-image">
-                    </div>
-
-                    <div class="project-body">
-                        <div class="project-description">
-                            <h2 style="margin-bottom: 20px;">OVERVIEW</h2>
-                            <p id="project-desc-text">Fetching project details from the mainframe...</p>
-
-                            <h2 style="margin-top: 40px; margin-bottom: 20px;">KEY_FEATURES</h2>
-                            <ul id="project-features"
-                                style="font-size: 1.1rem; line-height: 1.6; padding-left: 20px; margin-left: 0; color: #444;">
-                                <!-- Features list -->
-                            </ul>
-
-                            <h2 style="margin-top: 40px; margin-bottom: 20px;">TECHNICAL_ARCHITECTURE</h2>
-                            <p id="technical-details"
-                                style="font-size: 1.1rem; line-height: 1.6; background: #f8f9fa; padding: 15px; border-left: 4px solid var(--border-black); overflow-wrap: break-word;">
-                                <!-- Deep tech details -->
-                            </p>
-
-                            <div id="project-gallery" class="gallery">
-                                <!-- Screenshots -->
-                            </div>
-                        </div>
-
-                        <div class="project-sidebar">
-                            <div class="sidebar-item">
-                                <h4>TECHNOLOGIES</h4>
-                                <div id="project-tags" class="tags-container"
-                                    style="display: flex; flex-wrap: wrap; gap: 10px;">
-                                    <!-- Tags -->
-                                </div>
-                            </div>
-                            <div class="sidebar-item">
-                                <h4>BUILD_STATUS</h4>
-                                <p id="build-status">READY FOR DEPLOYMENT</p>
-                            </div>
-                            <div id="apk-section" class="apk-download" style="display: none;">
-                                <a id="apk-link" href="#" class="btn-green"
-                                    style="width: 100%; text-align: center;">DOWNLOAD APK / TEST BUILD</a>
-                            </div>
-                        </div>
-                    </div>
+        <!-- 1. PREVIEW WINDOW — visual first -->
+        <div class="window preview-window">
+            <div class="window-header">
+                <span id="window-title" class="window-title">LOAD_SYS.EXE</span>
+                <div class="window-controls">
+                    <span class="wc-red"></span>
+                    <span class="wc-yellow"></span>
+                    <span class="wc-green"></span>
                 </div>
             </div>
+            <img id="project-hero-img" src="" alt="Project Preview" class="preview-img">
         </div>
+
+        <!-- 2. TITLE + TAGLINE -->
+        <div class="project-title-block">
+            <div class="section-label" style="margin-bottom:14px;">PROJECT_DETAIL</div>
+            <h1 id="project-title">PROJECT_TITLE</h1>
+            <p class="project-tagline" id="project-tagline">Loading project data…</p>
+        </div>
+
+        <!-- 3. ACTION BUTTONS -->
+        <div class="project-actions">
+            <a id="btn-demo" href="#" class="action-btn action-btn-primary">
+                <i data-lucide="play" style="width:16px;height:16px;"></i> RUN_DEMO
+            </a>
+            <a id="btn-github" href="https://github.com/LarssonDev" target="_blank"
+                class="action-btn action-btn-secondary">
+                <i data-lucide="github" style="width:16px;height:16px;"></i> VIEW_SOURCE
+            </a>
+        </div>
+
+        <!-- 4. QUICK INFO PANEL -->
+        <div class="info-panel">
+            <div class="info-cell">
+                <div class="info-cell-label">PLATFORM</div>
+                <div class="info-cell-value" id="info-platform">—</div>
+            </div>
+            <div class="info-cell">
+                <div class="info-cell-label">TYPE</div>
+                <div class="info-cell-value" id="info-type">—</div>
+            </div>
+            <div class="info-cell">
+                <div class="info-cell-label">STATUS</div>
+                <div class="info-cell-value" id="info-status">SHIPPED</div>
+            </div>
+            <div class="info-cell">
+                <div class="info-cell-label">STACK</div>
+                <div class="info-cell-value" id="info-stack">—</div>
+            </div>
+        </div>
+
+        <!-- 5. OVERVIEW -->
+        <div class="section-loader">OVERVIEW</div>
+        <p class="overview-text" id="project-desc-text">Fetching project details from the mainframe…</p>
+
+        <!-- 6. FEATURES -->
+        <div class="section-loader">KEY_FEATURES</div>
+        <ul class="features-list" id="project-features"></ul>
+
+        <!-- 7. TECH STACK TAGS -->
+        <div class="section-loader">TECH_STACK</div>
+        <div class="tech-tags" id="project-tags"></div>
+
+        <!-- 8. TECHNICAL NOTES -->
+        <div class="section-loader">TECHNICAL_ARCHITECTURE</div>
+        <p class="technical-block" id="technical-details"></p>
+
+        <!-- 9. GALLERY -->
+        <div id="gallery-wrapper" style="display:none;">
+            <div class="section-loader">SCREENSHOTS</div>
+            <div class="gallery" id="project-gallery"></div>
+        </div>
+
     </main>
 
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
     <script src="main.js"></script>
     <script>
-        // Init logic moved to main.js or handled here if preferred
+        lucide.createIcons();
         document.addEventListener('DOMContentLoaded', () => {
-            if (typeof initProjectDetail === 'function') {
-                initProjectDetail();
-            }
+            if (typeof initProjectDetail === 'function') initProjectDetail();
         });
     </script>
 </body>

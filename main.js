@@ -152,9 +152,13 @@ const projectsData = {
     'ila': {
         title: 'ILA COMMUNITY',
         windowTitle: 'ILA_SOURCE.APK',
+        tagline: 'An event management and community platform for the Mizo people — built with real-time sync and secure payments.',
+        platform: 'Android / iOS',
+        type: 'Community App',
+        stack: 'React Native',
         image: 'icon.png',
-        description: 'ILA Community is a dedicated event management and engagement platform designed for the Mizo community. It serves as a central hub for cultural events, local news, and community support systems.',
-        tags: ['#REACT_NATIVE', '#FIREBASE', '#RAZORPAY'],
+        description: 'ILA Community is a dedicated event management and engagement platform for the Mizo community. It serves as a central hub for cultural events, local news, and community support systems.',
+        tags: ['React Native', 'Firebase', 'Razorpay', 'Leaflet Maps'],
         features: [
             'Real-time event notification system',
             'Secure payment integration via Razorpay',
@@ -164,22 +168,27 @@ const projectsData = {
         ],
         technical: 'Built using React Native for cross-platform efficiency. The backend leverages Firebase Realtime Database for instant synchronization across devices. Payments are handled via OAuth-secured Razorpay hooks, and geographical data is visualized using the Leaflet.js ecosystem.',
         screenshots: [],
-        apk: '#'
+        github: 'https://github.com/LarssonDev',
+        demo: null
     },
     'anatomypro': {
         title: 'NOVA',
         windowTitle: 'NOVA_SYSTEM.EXE',
+        tagline: 'Habit tracking reimagined — see your discipline reflected on an interactive anatomy model in real time.',
+        platform: 'Android / iOS',
+        type: 'Health & Productivity',
+        stack: 'React Native + Skia',
         image: 'anatomy_pulse.png',
-        description: 'AnatomyPro transforms habit tracking into a visual journey. By mapping daily disciplines to a digital anatomy model, users can literally see their "growth" as different muscle groups and organs glow or change color based on session consistency.',
-        tags: ['#SVG_ANIMATION', '#HABIT_TECH', '#TSX'],
+        description: 'NOVA maps daily habits to a 3D anatomy model. As you build consistency, different muscle groups and organs glow — making growth visible and motivating.',
+        tags: ['React Native', 'TypeScript', 'Skia', 'SVG Animation', 'Async Storage'],
         features: [
-            'Interactive SVG anatomy model with dynamic tinting',
+            'Interactive SVG anatomy model with dynamic color tinting',
             'Custom goal-to-bodypart mapping algorithm',
             'Real-time analytics for physical habit consistency',
-            'Secure local storage for privacy-first tracking',
+            'Privacy-first — all data stays local on device',
             'Custom positioning tool for precise overlay alignment'
         ],
-        technical: 'The core engine uses React Native Skia for high-performance SVG manipulation. A custom coordinate mapping system ensures overlays align perfectly across different screen aspects. State management is handled through a combination of Context API and persistent local storage.',
+        technical: 'The core engine uses React Native Skia for high-performance SVG manipulation. A custom coordinate mapping system ensures overlays align perfectly across different screen sizes. State is managed through Context API + persistent local storage.',
         screenshots: [
             { src: 'nova_screens/nova_dashboard.jpg', caption: 'NOVA_DASHBOARD: Visual overview of habit progress.' },
             { src: 'nova_screens/nova_tasks.jpg', caption: 'HABIT_CALENDAR: Monthly tracking view.' },
@@ -187,39 +196,49 @@ const projectsData = {
             { src: 'nova_screens/nova_analytics_1.jpg', caption: 'SYSTEM_BALANCE: Granular analysis.' },
             { src: 'nova_screens/nova_config.jpg', caption: 'SYSTEM_CONFIG: Advanced local storage management.' }
         ],
-        apk: '#'
+        github: 'https://github.com/LarssonDev',
+        demo: null
     },
     'spam-remover': {
         title: 'GMAIL SPAM REMOVER',
         windowTitle: 'SPAM_FILTER.PY',
+        tagline: 'ML-powered Gmail cleaner that catches phishing and spam that standard filters miss — built with Naive Bayes.',
+        platform: 'Desktop (Python)',
+        type: 'ML Tool',
+        stack: 'Python + Scikit-Learn',
         image: 'spam_remover.jpg',
-        description: 'A professional-grade inbox hygiene tool that applies ML-based filters to personal Gmail accounts, identifying sophisticated phishing and marketing spam that standard filters miss.',
-        tags: ['#MACHINE_LEARNING', '#SCIKIT_LEARN', '#OAUTH2'],
+        description: 'An inbox hygiene tool applying Naive Bayes ML filters to Gmail accounts, identifying sophisticated phishing and marketing spam that Google\'s built-in filters often miss.',
+        tags: ['Python', 'Scikit-Learn', 'Gmail API', 'OAuth2', 'Naive Bayes'],
         features: [
             'Multinomial Naive Bayes classification engine',
             'Secure Google OAuth 2.0 authentication flow',
             'Real-time scanning of unread messages via Gmail API',
-            'Automated batch organization (Trash/Spam folders)',
-            'Custom model serialization for rapid cold-start classification'
+            'Automated batch organisation into Trash / Spam folders',
+            'Model serialisation for rapid cold-start classification'
         ],
-        technical: 'The system uses a Scikit-Learn pipeline for text vectorization (CountVectorizer) and classification. It processes data locally to ensure user privacy, interacting with the Gmail API via the Google Auth Python library.',
+        technical: 'Uses a Scikit-Learn pipeline for text vectorisation (CountVectorizer) and classification. Processes data locally to ensure privacy. Integrates with the Gmail API via google-auth-oauthlib.',
         screenshots: [],
-        apk: '#'
+        github: 'https://github.com/LarssonDev',
+        demo: null
     },
     'inbawk': {
         title: 'INBAWK CARDS',
         windowTitle: 'INBAWK_BUILD.APK',
+        tagline: 'Real-time multiplayer card game for the Mizo community — premium casino aesthetic on mobile.',
+        platform: 'Android / iOS',
+        type: 'Multiplayer Game',
+        stack: 'Expo + Firebase',
         image: 'inbawk_board.png',
-        description: 'INBAWK brings the high-stakes atmosphere of a professional card room to mobile. Designed for the Mizo community to enjoy classic and custom card games in a premium, real-time environment.',
-        tags: ['#GAMING', '#REALTIME_SYNC', '#LANDSCAPE_UI'],
+        description: 'INBAWK brings the atmosphere of a professional card room to mobile. Designed for the Mizo community to enjoy classic and custom card games in a premium, real-time environment.',
+        tags: ['React Native', 'Expo', 'Firebase', 'Realtime DB', 'Custom Shaders'],
         features: [
-            'Real-time multiplayer lobbies with 100ms latency',
+            'Real-time multiplayer lobbies with ~100ms latency',
             'Intelligent AI bots for solo play modes',
-            'Premium casino aesthetic with custom asset shaders',
-            'Cross-platform account synchronization via Firebase',
+            'Premium aesthetic with custom asset shaders',
+            'Cross-platform account sync via Firebase',
             'In-game chat and community features'
         ],
-        technical: 'Built on Expo with a heavy focus on landscape UI stability. The real-time synchronization is achieved through Firebase Realtime Database listener trees. Custom character assets are dynamically loaded and tinted to reduce bundle size.',
+        technical: 'Built on Expo with heavy focus on landscape UI stability. Real-time sync uses Firebase Realtime Database listener trees. Custom character assets are dynamically tinted to reduce bundle size.',
         screenshots: [
             'inbawk/inbawk_1.jpg',
             'inbawk/inbawk_2.jpg',
@@ -228,7 +247,8 @@ const projectsData = {
             'inbawk/inbawk_5.jpg',
             'inbawk/inbawk_6.jpg'
         ],
-        apk: '#'
+        github: 'https://github.com/LarssonDev',
+        demo: null
     }
 };
 
@@ -244,14 +264,58 @@ function initProjectDetail() {
         return;
     }
 
-    document.getElementById('window-title').textContent = project.windowTitle;
-    document.getElementById('project-title').textContent = project.title;
-    document.getElementById('project-hero-img').src = project.image;
-    document.getElementById('project-desc-text').textContent = project.description;
-    document.getElementById('technical-details').textContent = project.technical || 'Detailed technical architecture coming soon.';
+    // Update page title
+    document.title = project.title + ' | LARSSON.DS';
 
+    // Window & hero
+    const wtEl = document.getElementById('window-title');
+    if (wtEl) wtEl.textContent = project.windowTitle;
+
+    const heroImg = document.getElementById('project-hero-img');
+    if (heroImg) {
+        heroImg.src = project.image;
+        heroImg.alt = project.title;
+    }
+
+    // Title + tagline
+    const titleEl = document.getElementById('project-title');
+    if (titleEl) titleEl.textContent = project.title;
+
+    const taglineEl = document.getElementById('project-tagline');
+    if (taglineEl) taglineEl.textContent = project.tagline || '';
+
+    // Action buttons
+    const btnDemo = document.getElementById('btn-demo');
+    if (btnDemo) {
+        if (project.demo) {
+            btnDemo.href = project.demo;
+        } else {
+            btnDemo.style.opacity = '0.4';
+            btnDemo.style.pointerEvents = 'none';
+            btnDemo.title = 'No live demo available';
+        }
+    }
+
+    const btnGithub = document.getElementById('btn-github');
+    if (btnGithub && project.github) btnGithub.href = project.github;
+
+    // Quick info panel
+    const infoPlatform = document.getElementById('info-platform');
+    if (infoPlatform) infoPlatform.textContent = project.platform || '—';
+
+    const infoType = document.getElementById('info-type');
+    if (infoType) infoType.textContent = project.type || '—';
+
+    const infoStack = document.getElementById('info-stack');
+    if (infoStack) infoStack.textContent = project.stack || '—';
+
+    // Overview
+    const descEl = document.getElementById('project-desc-text');
+    if (descEl) descEl.textContent = project.description;
+
+    // Features
     const featuresList = document.getElementById('project-features');
-    if (project.features && featuresList) {
+    if (featuresList && project.features) {
         project.features.forEach(feature => {
             const li = document.createElement('li');
             li.textContent = feature;
@@ -259,32 +323,37 @@ function initProjectDetail() {
         });
     }
 
-    const tagsContainer = document.getElementById('project-tags');
-    if (tagsContainer) {
+    // Tech tags
+    const tagsEl = document.getElementById('project-tags');
+    if (tagsEl && project.tags) {
         project.tags.forEach(tag => {
             const span = document.createElement('span');
-            span.className = 'tag';
+            span.className = 'tech-tag';
             span.textContent = tag;
-            tagsContainer.appendChild(span);
+            tagsEl.appendChild(span);
         });
     }
 
+    // Technical notes
+    const techEl = document.getElementById('technical-details');
+    if (techEl) techEl.textContent = project.technical || 'Technical architecture details coming soon.';
+
+    // Screenshots gallery
     const gallery = document.getElementById('project-gallery');
-    if (gallery) {
+    const galleryWrapper = document.getElementById('gallery-wrapper');
+    if (gallery && project.screenshots && project.screenshots.length > 0) {
+        galleryWrapper.style.display = 'block';
         project.screenshots.forEach(screenshot => {
             const img = document.createElement('img');
             img.src = typeof screenshot === 'string' ? screenshot : screenshot.src;
-            img.alt = 'Project Screenshot';
+            img.alt = typeof screenshot === 'string' ? project.title : (screenshot.caption || project.title);
+            img.loading = 'lazy';
             gallery.appendChild(img);
         });
     }
 
-    if (project.apk && project.apk !== '#') {
-        const apkSection = document.getElementById('apk-section');
-        const apkLink = document.getElementById('apk-link');
-        if (apkSection) apkSection.style.display = 'block';
-        if (apkLink) apkLink.href = project.apk;
-    }
+    // Lucide icons refresh
+    if (window.lucide) lucide.createIcons();
 }
 
 // ─── Build Form ──────────────────────────────
