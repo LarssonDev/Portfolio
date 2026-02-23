@@ -4,206 +4,288 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NEO-PORTFOLIO | BRUTAL & BOLD</title>
+    <title>Larsson — Data Science & App Developer</title>
+    <meta name="description"
+        content="Portfolio of Larsson — MSc Data Science student, Mobile App Developer. Building AI systems, mobile apps, and data-driven solutions.">
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=Syne:wght@400..800&display=swap"
         rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 </head>
 
 <body>
     <div class="cursor"></div>
+    <div class="cursor-trail"></div>
 
     <header class="navbar">
-        <div class="logo">LARSSON.DS</div>
+        <div class="logo">LARSSON<span class="logo-dot">.DS</span></div>
         <nav>
+            <a href="#about" class="nav-link">ABOUT</a>
             <a href="#projects" class="nav-link">PROJECTS</a>
-            <a href="#tech-stack" class="nav-link">TECH_STACK</a>
-            <a href="#build" class="nav-link">BUILD_FOR_YOU</a>
+            <a href="#tech-stack" class="nav-link">STACK</a>
+            <a href="#build" class="nav-link">HIRE</a>
             <a href="mailto:lrtlarsson@gmail.com" class="nav-link btn-yellow">HIRE_ME.CSV</a>
         </nav>
+        <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+        </button>
     </header>
 
     <main>
+        <!-- ═══════════════ HERO ═══════════════ -->
         <section class="hero">
             <div class="hero-container">
-                <div class="profile-window window">
+                <div class="profile-window window reveal">
                     <div class="window-header">
                         <span class="window-title">IDENT_SNAPSHOT.JPG</span>
+                        <div class="window-controls">
+                            <span class="wc-red"></span>
+                            <span class="wc-yellow"></span>
+                            <span class="wc-green"></span>
+                        </div>
                     </div>
                     <div class="profile-image">
                         <img src="profile.jpg" alt="Larsson Profile"
                             style="width: 100%; height: 100%; object-fit: cover;">
                     </div>
+                    <div class="profile-badge">
+                        <span class="badge-dot"></span> AVAILABLE FOR WORK
+                    </div>
                 </div>
 
-                <div class="window hero-window">
+                <div class="window hero-window reveal">
                     <div class="window-header">
                         <span class="window-title">DEVELOPER_MANIFESTO.EXE</span>
                         <div class="window-controls">
-                            <span>_</span>
-                            <span>□</span>
-                            <span>×</span>
+                            <span class="wc-red"></span>
+                            <span class="wc-yellow"></span>
+                            <span class="wc-green"></span>
                         </div>
                     </div>
                     <div class="window-content hero-content">
-                        <h1>I'M <span class="highlight-magenta">LARSSON</span></h1>
+                        <p class="hero-greeting">Hey, I'm</p>
+                        <h1 style="white-space:nowrap;font-size:clamp(2.2rem,6vw,5rem);">LARSSON<span
+                                class="cursor-blink">_</span></h1>
+                        <p class="hero-tagline">Learning to build <span class="highlight-magenta">smart apps</span> &
+                            <span class="highlight-green">data systems</span>
+                        </p>
 
-                        <div class="site-intro"
-                            style="margin-top: 20px; border-top: 2px solid var(--border-black); padding-top: 20px;">
-                            <span class="intro-tag">[IDENTITY]</span>
-                            A Data Science student focused on AI, mobile apps, and problem solving.
-                            This space showcases my projects and technical growth.
-                        </div>
-
-                        <div class="site-purpose"
-                            style="font-size: 1rem; line-height: 1.6; margin-bottom: 30px; color: #333;">
-                            I enjoy building practical applications that combine design, logic, and real-world
-                            usefulness.
-                            Currently, I’m exploring AI systems, data-driven solutions, and modern app development while
-                            continuously improving my skills through hands-on projects.
+                        <div class="hero-bio">
+                            <div class="bio-item"><i data-lucide="graduation-cap" class="bio-icon"></i> <strong>MSc Data
+                                    Science Student</strong> — Still exploring AI & ML
+                            </div>
+                            <div class="bio-item"><i data-lucide="smartphone" class="bio-icon"></i> <strong>App
+                                    Developer (in progress)</strong> — Experimenting with
+                                React Native & Android</div>
                         </div>
 
                         <div class="hero-actions">
-                            <a href="#projects" class="btn-green">VIEW PROJECTS</a>
-                            <a href="#contact" class="btn-blue">CONNECT()</a>
+                            <a href="#projects" class="btn-primary">VIEW PROJECTS ↓</a>
+                            <a href="#build" class="btn-secondary">LET'S BUILD →</a>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Stickers -->
-            <div class="sticker sticker-1">🧠</div>
-            <div class="sticker sticker-2">📊</div>
-            <div class="sticker sticker-3">📱</div>
-            <div class="sticker sticker-4">SUSTAINABLE_PEAK</div>
+            <!-- Decorative floaters -->
+            <div class="sticker sticker-1"><i data-lucide="brain" class="sticker-icon"></i></div>
+            <div class="sticker sticker-2"><i data-lucide="bar-chart-2" class="sticker-icon"></i></div>
+            <div class="sticker sticker-3"><i data-lucide="smartphone" class="sticker-icon"></i></div>
+            <div class="sticker sticker-4">PEAK_MODE</div>
 
             <div class="floating-box box-1">PYTHON</div>
             <div class="floating-box box-2">REACT_NATIVE</div>
             <div class="floating-box box-3">FIREBASE</div>
         </section>
 
+        <!-- ═══════════════ ABOUT ═══════════════ -->
+        <section id="about" class="about-section">
+            <div class="about-inner">
+                <div class="section-label">WHO AM I?</div>
+                <h2 class="section-title">ABOUT_ME<span class="title-accent">.JSON</span></h2>
+                <div class="about-grid">
+                    <div class="window about-card reveal">
+                        <div class="window-header">
+                            <span class="window-title">BACKGROUND.TXT</span>
+                        </div>
+                        <div class="window-content">
+                            <p>I'm a data science student who genuinely enjoys building things — even when it gets
+                                messy. I'm still learning AI, machine learning, and mobile development, and these
+                                projects are my way of practising and growing. Nothing here is perfect, but everything
+                                here is honest.</p>
+                        </div>
+                    </div>
+                    <div class="about-stats">
+                        <div class="window stat-card reveal">
+                            <div class="window-content stat-content">
+                                <span class="stat-num">4+</span>
+                                <span class="stat-label">Shipped Projects</span>
+                            </div>
+                        </div>
+                        <div class="window stat-card reveal">
+                            <div class="window-content stat-content">
+                                <span class="stat-num">ML</span>
+                                <span class="stat-label">+ Mobile + Web</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══════════════ PROJECTS ═══════════════ -->
         <section id="projects" class="projects">
-            <h2 class="section-title">MY_PROJECTS</h2>
+            <div class="section-label">WHAT I BUILD</div>
+            <h2 class="section-title">MY_PROJECTS<span class="title-accent">.GRID</span></h2>
             <div class="project-grid">
+
                 <!-- Project 1: ILA App -->
-                <a href="project.html?id=ila" class="project-card window">
+                <a href="project.html?id=ila" class="project-card window reveal">
                     <div class="window-header">
                         <span class="window-title">ILA_COMMUNITY.APK</span>
+                        <span class="card-tag-header">#REACT_NATIVE</span>
                     </div>
                     <div class="window-content p-0">
-                        <img src="icon.png" alt="ILA COMMUNITY">
+                        <div class="card-img-wrap">
+                            <img src="icon.png" alt="ILA COMMUNITY">
+                            <div class="card-overlay">VIEW PROJECT →</div>
+                        </div>
                         <div class="project-info">
                             <h3>ILA COMMUNITY</h3>
                             <p>Event management app with Firebase, Razorpay, and Leaflet maps for Mizo community
                                 engagement.</p>
-                            <span class="tag">#REACT_NATIVE</span>
+                            <div class="tech-badges">
+                                <span class="badge badge-rn">React Native</span>
+                                <span class="badge badge-fb">Firebase</span>
+                                <span class="badge badge-js">Razorpay</span>
+                            </div>
                         </div>
                     </div>
                 </a>
 
                 <!-- Project 2: NOVA -->
-                <a href="project.html?id=anatomypro" class="project-card window">
+                <a href="project.html?id=anatomypro" class="project-card window reveal">
                     <div class="window-header">
                         <span class="window-title">NOVA.EXE</span>
+                        <span class="card-tag-header">#HABIT_TECH</span>
                     </div>
                     <div class="window-content p-0">
-                        <img src="anatomy_pulse.png" alt="NOVA">
+                        <div class="card-img-wrap">
+                            <img src="anatomy_pulse.png" alt="NOVA">
+                            <div class="card-overlay">VIEW PROJECT →</div>
+                        </div>
                         <div class="project-info">
                             <h3>NOVA</h3>
                             <p>Habit tracker featuring an interactive anatomy SVG model and analytics for physical
                                 growth.</p>
-                            <span class="tag">#HABIT_TECH</span>
+                            <div class="tech-badges">
+                                <span class="badge badge-rn">React Native</span>
+                                <span class="badge badge-ts">TypeScript</span>
+                                <span class="badge badge-data">SVG/Skia</span>
+                            </div>
                         </div>
                     </div>
                 </a>
 
-                <!-- Project 4: Intelligent Gmail Spam Remover -->
-                <a href="project.html?id=spam-remover" class="project-card window">
+                <!-- Project 3: Gmail Spam Remover -->
+                <a href="project.html?id=spam-remover" class="project-card window reveal">
                     <div class="window-header">
                         <span class="window-title">GMAIL_SPAM_REMOVER.PY</span>
+                        <span class="card-tag-header">#ML</span>
                     </div>
                     <div class="window-content p-0">
-                        <img src="spam_remover.jpg" alt="Gmail Spam Remover">
+                        <div class="card-img-wrap">
+                            <img src="spam_remover.jpg" alt="Gmail Spam Remover">
+                            <div class="card-overlay">VIEW PROJECT →</div>
+                        </div>
                         <div class="project-info">
                             <h3>SPAM REMOVER</h3>
-                            <p>ML-powered spam detection using Naive Bayes and Gmail API for real-time inbox management.
-                            </p>
-                            <span class="tag">#MACHINE_LEARNING</span>
+                            <p>ML-powered spam detection using Naive Bayes and Gmail API for real-time inbox
+                                management.</p>
+                            <div class="tech-badges">
+                                <span class="badge badge-py">Python</span>
+                                <span class="badge badge-data">Scikit-Learn</span>
+                                <span class="badge badge-js">OAuth2</span>
+                            </div>
                         </div>
                     </div>
                 </a>
 
-                <!-- Project 5: INBAWK -->
-                <a href="project.html?id=inbawk" class="project-card window">
+                <!-- Project 4: INBAWK -->
+                <a href="project.html?id=inbawk" class="project-card window reveal">
                     <div class="window-header">
                         <span class="window-title">INBAWK_CARDS.APK</span>
+                        <span class="card-tag-header">#GAMING</span>
                     </div>
                     <div class="window-content p-0">
-                        <img src="inbawk_board.png" alt="INBAWK">
+                        <div class="card-img-wrap">
+                            <img src="inbawk_board.png" alt="INBAWK">
+                            <div class="card-overlay">VIEW PROJECT →</div>
+                        </div>
                         <div class="project-info">
                             <h3>INBAWK CARDS</h3>
                             <p>Real-time multiplayer card game with Firebase backend and premium casino aesthetic.</p>
-                            <span class="tag">#REACT_NATIVE</span>
+                            <div class="tech-badges">
+                                <span class="badge badge-rn">React Native</span>
+                                <span class="badge badge-fb">Firebase</span>
+                                <span class="badge badge-ts">Expo</span>
+                            </div>
                         </div>
                     </div>
                 </a>
             </div>
         </section>
 
+        <!-- ═══════════════ TECH STACK ═══════════════ -->
         <section id="tech-stack" class="tech-stack-section">
             <div class="sticker-container">
                 <div class="sticker-tech-1">FULL_STACK</div>
                 <div class="sticker-tech-2">💻 CODE_MODE</div>
             </div>
-            <h2 class="section-title">TECHNICAL_STACK</h2>
+            <div class="section-label">WHAT I USE</div>
+            <h2 class="section-title">TECHNICAL_STACK<span class="title-accent">.LIB</span></h2>
             <div class="tech-stack-grid">
-                <!-- Category 1: Data Science -->
-                <div class="window tech-category">
+                <div class="window tech-category reveal">
                     <div class="window-header">
                         <span class="window-title">DATA_SCIENCE.LIB</span>
                     </div>
                     <div class="window-content">
-                        <h3>ANALYSIS & ML</h3>
+                        <h3>🔬 ANALYSIS & ML</h3>
                         <div class="tech-list">
                             <span class="tech-item">PYTHON</span>
                             <span class="tech-item">PANDAS</span>
                             <span class="tech-item">NUMPY</span>
-                            <span class="tech-item">SCIKIT-LEARN</span>
                             <span class="tech-item">MATPLOTLIB</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- Category 2: App Dev -->
-                <div class="window tech-category">
+                <div class="window tech-category reveal">
                     <div class="window-header">
                         <span class="window-title">APP_DEV.CORE</span>
                     </div>
                     <div class="window-content">
-                        <h3>MOBILE & WEB</h3>
+                        <h3>📱 MOBILE & WEB</h3>
                         <div class="tech-list">
                             <span class="tech-item">REACT NATIVE</span>
-                            <span class="tech-item">JAVASCRIPT</span>
-                            <span class="tech-item">TYPESCRIPT</span>
                             <span class="tech-item">FIREBASE</span>
-                            <span class="tech-item">CSS (BRUTAL)</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- Category 3: Tools -->
-                <div class="window tech-category">
+                <div class="window tech-category reveal">
                     <div class="window-header">
                         <span class="window-title">ENVIRONMENT.CFG</span>
                     </div>
                     <div class="window-content">
-                        <h3>WORKFLOW</h3>
+                        <h3>⚙️ WORKFLOW</h3>
                         <div class="tech-list">
                             <span class="tech-item">GIT/GITHUB</span>
                             <span class="tech-item">VS CODE</span>
+                            <span class="tech-item">ANDROID STUDIO</span>
                             <span class="tech-item">GOOGLE COLAB</span>
                             <span class="tech-item">EXPO</span>
                         </div>
@@ -211,23 +293,30 @@
                 </div>
             </div>
         </section>
-        </section>
 
+        <!-- ═══════════════ BUILD FOR YOU ═══════════════ -->
         <section id="build" class="build-section">
-            <h2 class="section-title">BUILD_FOR_YOU</h2>
             <div class="sticker-container">
                 <div class="sticker sticker-build-1">IDEA_LOADING...</div>
                 <div class="sticker sticker-build-2">100%_CUSTOM</div>
             </div>
+            <div class="section-label">LET'S WORK TOGETHER</div>
+            <h2 class="section-title" style="text-align:center;">BUILD_FOR_YOU<span class="title-accent">.EXE</span>
+            </h2>
             <p class="site-intro"
-                style="text-align: center; max-width: 800px; margin: 0 auto 40px auto; position: relative; z-index: 2;">
-                Define your vision below. I process every proposal through my technical stack to determine feasibility
-                and alignment. High-impact projects prioritized.
+                style="text-align: center; max-width: 700px; margin: 0 auto 40px auto; position: relative; z-index: 2;">
+                Have an idea? I turn concepts into real, working software. Drop your proposal below — high-impact
+                projects get priority.
             </p>
 
-            <div class="window form-window">
+            <div class="window form-window reveal">
                 <div class="window-header">
                     <span class="window-title">PROPOSAL_SUBMISSION.CSS</span>
+                    <div class="window-controls">
+                        <span class="wc-red"></span>
+                        <span class="wc-yellow"></span>
+                        <span class="wc-green"></span>
+                    </div>
                 </div>
                 <div class="window-content">
                     <form id="build-form">
@@ -242,6 +331,7 @@
                                 <option value="">SELECT_DOMAIN</option>
                                 <option value="web-dev">WEB_PLATFORM</option>
                                 <option value="app-dev">MOBILE_APP (REACT_NATIVE)</option>
+                                <option value="data-science">DATA_SCIENCE / AI</option>
                             </select>
                         </div>
 
@@ -252,7 +342,7 @@
 
                         <div class="input-group">
                             <label>OPERATIONAL_INTENT (REQUIREMENTS)</label>
-                            <textarea id="requirements" rows="6"
+                            <textarea id="requirements" rows="5"
                                 placeholder="DESCRIBE THE CORE LOGIC AND DESIRED OUTCOME..." required></textarea>
                         </div>
 
@@ -267,20 +357,25 @@
 
     <footer id="contact">
         <div class="footer-content">
-            <h2>LET'S ASCEND TOGETHER.</h2>
+            <div class="section-label" style="margin-bottom:16px;">GET IN TOUCH</div>
+            <h2>LET'S ASCEND<br>TOGETHER.</h2>
+            <p class="footer-sub">Open to freelance projects, collaborations, and opportunities.</p>
             <div class="contact-links">
-                <a href="mailto:lrtlarsson@gmail.com" class="btn-magenta">GMAIL</a>
+                <a href="mailto:lrtlarsson@gmail.com" class="btn-magenta"><i data-lucide="mail" class="btn-icon"></i>
+                    GMAIL</a>
                 <a href="https://www.linkedin.com/in/larsson-lalremtluanga-b53796379/" class="btn-blue"
-                    target="_blank">LINKEDIN</a>
-                <a href="https://github.com/LarssonDev" class="btn-green" target="_blank">GITHUB</a>
+                    target="_blank"><i data-lucide="linkedin" class="btn-icon"></i> LINKEDIN</a>
+                <a href="https://github.com/LarssonDev" class="btn-green" target="_blank"><i data-lucide="github"
+                        class="btn-icon"></i> GITHUB</a>
             </div>
         </div>
         <div class="copyright">
-            © 2026 LARSSON_STUDIO | PEAK RESERVED
+            © 2026 LARSSON_STUDIO | ALL RIGHTS RESERVED
         </div>
     </footer>
 
     <script src="main.js"></script>
+    <script>lucide.createIcons();</script>
 </body>
 
 </html>

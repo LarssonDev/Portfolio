@@ -1,62 +1,134 @@
-// Custom Cursor
+/* ════════════════════════════════════════════
+   LARSSON PORTFOLIO — MAIN JS
+   ════════════════════════════════════════════ */
+
+// ─── Custom Cursor ───────────────────────────
 const cursor = document.querySelector('.cursor');
+const cursorTrail = document.querySelector('.cursor-trail');
+let mouseX = 0, mouseY = 0;
+let trailX = 0, trailY = 0;
 
 document.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
     if (cursor) {
-        cursor.style.left = e.clientX + 'px';
-        cursor.style.top = e.clientY + 'px';
+        cursor.style.left = mouseX + 'px';
+        cursor.style.top = mouseY + 'px';
     }
 });
 
-// Interactive boxes parralax-ish
-document.addEventListener('mousemove', (e) => {
-    const boxes = document.querySelectorAll('.floating-box');
-    const x = (window.innerWidth / 2 - e.pageX) / 50;
-    const y = (window.innerHeight / 2 - e.pageY) / 50;
+// Smooth trailing cursor
+function animateTrail() {
+    trailX += (mouseX - trailX) * 0.15;
+    trailY += (mouseY - trailY) * 0.15;
+    if (cursorTrail) {
+        cursorTrail.style.left = trailX + 'px';
+        cursorTrail.style.top = trailY + 'px';
+    }
+    requestAnimationFrame(animateTrail);
+}
+animateTrail();
 
-    boxes.forEach((box, index) => {
-        const factor = (index + 1) * 0.3;
-        box.style.transform = `translate(${x * factor}px, ${y * factor}px) rotate(${index * 3 - 5}deg)`;
+// Cursor grow on links/buttons
+document.querySelectorAll('a, button, .tech-item, .project-card').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+        if (cursor) {
+            cursor.style.width = '22px';
+            cursor.style.height = '22px';
+            cursor.style.background = 'var(--bg-yellow)';
+        }
+    });
+    el.addEventListener('mouseleave', () => {
+        if (cursor) {
+            cursor.style.width = '14px';
+            cursor.style.height = '14px';
+            cursor.style.background = 'var(--bg-magenta)';
+        }
     });
 });
 
-// Click ripple/effect? Let's just do a simple button feedback
-const buttons = document.querySelectorAll('button, .btn-yellow, .btn-green, .btn-blue, .btn-magenta');
+// ─── Hamburger Menu ──────────────────────────
+const hamburger = document.getElementById('hamburger');
+const nav = document.querySelector('nav');
 
-buttons.forEach(btn => {
+if (hamburger && nav) {
+    hamburger.addEventListener('click', () => {
+        nav.classList.toggle('open');
+    });
+
+    // Close on link click
+    nav.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', () => nav.classList.remove('open'));
+    });
+}
+
+// ─── Floating Box Parallax ───────────────────
+document.addEventListener('mousemove', (e) => {
+    const boxes = document.querySelectorAll('.floating-box');
+    const cx = window.innerWidth / 2;
+    const cy = window.innerHeight / 2;
+    const dx = (cx - e.clientX) / 55;
+    const dy = (cy - e.clientY) / 55;
+
+    boxes.forEach((box, i) => {
+        const f = (i + 1) * 0.35;
+        const rot = i * 3 - 5;
+        box.style.transform = `translate(${dx * f}px, ${dy * f}px) rotate(${rot}deg)`;
+    });
+});
+
+// ─── Scroll Reveal ───────────────────────────
+const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry, idx) => {
+        if (entry.isIntersecting) {
+            // Stagger cards in a grid
+            const siblings = entry.target.parentElement.querySelectorAll('.reveal');
+            let delay = 0;
+            siblings.forEach((sib, i) => {
+                if (sib === entry.target) delay = i * 80;
+            });
+            setTimeout(() => {
+                entry.target.classList.add('visible');
+            }, delay);
+            revealObserver.unobserve(entry.target);
+        }
+    });
+}, { threshold: 0.12 });
+
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+// ─── Button Press Effect ─────────────────────
+document.querySelectorAll('button, .btn-yellow, .btn-green, .btn-blue, .btn-magenta, .btn-primary, .btn-secondary').forEach(btn => {
     btn.addEventListener('mousedown', () => {
         btn.style.transform = 'translate(4px, 4px)';
         btn.style.boxShadow = '2px 2px 0px black';
     });
-
     btn.addEventListener('mouseup', () => {
-        btn.style.transform = 'translate(0px, 0px)';
-        btn.style.boxShadow = '6px 6px 0px black';
+        btn.style.transform = '';
+        btn.style.boxShadow = '';
+    });
+    btn.addEventListener('mouseleave', () => {
+        btn.style.transform = '';
+        btn.style.boxShadow = '';
     });
 });
 
-// Scroll Reveal
-const observerOptions = {
-    threshold: 0.1
-};
-
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0)';
-        }
+// ─── Sticker Hover Tilt ──────────────────────
+document.querySelectorAll('.sticker').forEach(sticker => {
+    sticker.addEventListener('mousemove', (e) => {
+        const rect = sticker.getBoundingClientRect();
+        const cx = rect.left + rect.width / 2;
+        const cy = rect.top + rect.height / 2;
+        const rx = (e.clientY - cy) / 5;
+        const ry = -(e.clientX - cx) / 5;
+        sticker.style.transform = `perspective(300px) rotateX(${rx}deg) rotateY(${ry}deg) scale(1.1)`;
     });
-}, observerOptions);
-
-document.querySelectorAll('.project-card, .about-text').forEach(el => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(50px)';
-    el.style.transition = 'all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
-    observer.observe(el);
+    sticker.addEventListener('mouseleave', () => {
+        sticker.style.transform = '';
+    });
 });
 
-// Project Data for Detail Pages
+// ─── Project Data ────────────────────────────
 const projectsData = {
     'ila': {
         title: 'ILA COMMUNITY',
@@ -90,11 +162,11 @@ const projectsData = {
         ],
         technical: 'The core engine uses React Native Skia for high-performance SVG manipulation. A custom coordinate mapping system ensures overlays align perfectly across different screen aspects. State management is handled through a combination of Context API and persistent local storage.',
         screenshots: [
-            { src: 'nova_screens/nova_dashboard.jpg', caption: 'NOVA_DASHBOARD: Visual overview of habit progress using a custom anatomy heat-map.' },
-            { src: 'nova_screens/nova_tasks.jpg', caption: 'HABIT_CALENDAR: Monthly tracking view integrated with daily task checklists.' },
-            { src: 'nova_screens/nova_analytics_2.jpg', caption: 'PERFORMANCE_VELOCITY: Real-time tracking of habit completion rates and weekly trends.' },
-            { src: 'nova_screens/nova_analytics_1.jpg', caption: 'SYSTEM_BALANCE: Granular analysis of physical growth across major muscle groups.' },
-            { src: 'nova_screens/nova_config.jpg', caption: 'SYSTEM_CONFIG: Advanced local storage management and session control.' }
+            { src: 'nova_screens/nova_dashboard.jpg', caption: 'NOVA_DASHBOARD: Visual overview of habit progress.' },
+            { src: 'nova_screens/nova_tasks.jpg', caption: 'HABIT_CALENDAR: Monthly tracking view.' },
+            { src: 'nova_screens/nova_analytics_2.jpg', caption: 'PERFORMANCE_VELOCITY: Real-time tracking.' },
+            { src: 'nova_screens/nova_analytics_1.jpg', caption: 'SYSTEM_BALANCE: Granular analysis.' },
+            { src: 'nova_screens/nova_config.jpg', caption: 'SYSTEM_CONFIG: Advanced local storage management.' }
         ],
         apk: '#'
     },
@@ -102,7 +174,7 @@ const projectsData = {
         title: 'GMAIL SPAM REMOVER',
         windowTitle: 'SPAM_FILTER.PY',
         image: 'spam_remover.jpg',
-        description: 'A professional-grade inbox hygiene tool that applies corporate-level security filters to personal Gmail accounts. It identifies and segregates sophisticated phishing and marketing spam that standard filters often miss.',
+        description: 'A professional-grade inbox hygiene tool that applies ML-based filters to personal Gmail accounts, identifying sophisticated phishing and marketing spam that standard filters miss.',
         tags: ['#MACHINE_LEARNING', '#SCIKIT_LEARN', '#OAUTH2'],
         features: [
             'Multinomial Naive Bayes classification engine',
@@ -111,7 +183,7 @@ const projectsData = {
             'Automated batch organization (Trash/Spam folders)',
             'Custom model serialization for rapid cold-start classification'
         ],
-        technical: 'The system uses a Scikit-Learn pipeline for text vectorization (CountVectorizer) and classification. It processes data locally to ensure user privacy, interacting with the Gmail API via the Google Auth Python library. The model is trained on integrated public and private datasets for maximum hit rate.',
+        technical: 'The system uses a Scikit-Learn pipeline for text vectorization (CountVectorizer) and classification. It processes data locally to ensure user privacy, interacting with the Gmail API via the Google Auth Python library.',
         screenshots: [],
         apk: '#'
     },
@@ -119,16 +191,16 @@ const projectsData = {
         title: 'INBAWK CARDS',
         windowTitle: 'INBAWK_BUILD.APK',
         image: 'inbawk_board.png',
-        description: 'INBAWK brings the high-stakes atmosphere of a professional card room to mobile. It is designed for the Mizo community to enjoy classic and custom card games in a premium, real-time environment.',
+        description: 'INBAWK brings the high-stakes atmosphere of a professional card room to mobile. Designed for the Mizo community to enjoy classic and custom card games in a premium, real-time environment.',
         tags: ['#GAMING', '#REALTIME_SYNC', '#LANDSCAPE_UI'],
         features: [
             'Real-time multiplayer lobbies with 100ms latency',
             'Intelligent AI bots for solo play modes',
-            'Premium Casino aesthetic with custom asset shaders',
+            'Premium casino aesthetic with custom asset shaders',
             'Cross-platform account synchronization via Firebase',
             'In-game chat and community features'
         ],
-        technical: 'Built on Expo with a heavy focus on landscape UI stability. The real-time synchronization is achieved through Firebase Realtime Database listener trees, ensuring all players see moves simultaneously. Custom character assets are dynamically loaded and tinted to reduce bundle size.',
+        technical: 'Built on Expo with a heavy focus on landscape UI stability. The real-time synchronization is achieved through Firebase Realtime Database listener trees. Custom character assets are dynamically loaded and tinted to reduce bundle size.',
         screenshots: [
             'inbawk/inbawk_1.jpg',
             'inbawk/inbawk_2.jpg',
@@ -141,28 +213,26 @@ const projectsData = {
     }
 };
 
+// ─── Project Detail Page ─────────────────────
 function initProjectDetail() {
     const params = new URLSearchParams(window.location.search);
     const projectId = params.get('id');
     const project = projectsData[projectId];
 
     if (!project) {
-        document.getElementById('project-title').textContent = 'PROJECT_NOT_FOUND.ERR';
+        const titleEl = document.getElementById('project-title');
+        if (titleEl) titleEl.textContent = 'PROJECT_NOT_FOUND.ERR';
         return;
     }
 
-    // Load simple fields
     document.getElementById('window-title').textContent = project.windowTitle;
     document.getElementById('project-title').textContent = project.title;
     document.getElementById('project-hero-img').src = project.image;
     document.getElementById('project-desc-text').textContent = project.description;
-
-    // Load Technical Details
     document.getElementById('technical-details').textContent = project.technical || 'Detailed technical architecture coming soon.';
 
-    // Load Features
     const featuresList = document.getElementById('project-features');
-    if (project.features) {
+    if (project.features && featuresList) {
         project.features.forEach(feature => {
             const li = document.createElement('li');
             li.textContent = feature;
@@ -170,32 +240,42 @@ function initProjectDetail() {
         });
     }
 
-    // Load Tags
     const tagsContainer = document.getElementById('project-tags');
-    project.tags.forEach(tag => {
-        const span = document.createElement('span');
-        span.className = 'tag';
-        span.textContent = tag;
-        tagsContainer.appendChild(span);
-    });
+    if (tagsContainer) {
+        project.tags.forEach(tag => {
+            const span = document.createElement('span');
+            span.className = 'tag';
+            span.textContent = tag;
+            tagsContainer.appendChild(span);
+        });
+    }
 
-    // Load Screenshots
     const gallery = document.getElementById('project-gallery');
-    project.screenshots.forEach(screenshot => {
-        const img = document.createElement('img');
-        img.src = typeof screenshot === 'string' ? screenshot : screenshot.src;
-        img.alt = 'Project Screenshot';
-        gallery.appendChild(img);
-    });
+    if (gallery) {
+        project.screenshots.forEach(screenshot => {
+            const img = document.createElement('img');
+            img.src = typeof screenshot === 'string' ? screenshot : screenshot.src;
+            img.alt = 'Project Screenshot';
+            gallery.appendChild(img);
+        });
+    }
 
     if (project.apk && project.apk !== '#') {
-        document.getElementById('apk-section').style.display = 'block';
-        document.getElementById('apk-link').href = project.apk;
+        const apkSection = document.getElementById('apk-section');
+        const apkLink = document.getElementById('apk-link');
+        if (apkSection) apkSection.style.display = 'block';
+        if (apkLink) apkLink.href = project.apk;
     }
 }
 
-// Build Form Listener for Index Page
+// ─── Build Form ──────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
+    trackVisit();
+
+    if (document.getElementById('proposals-list')) {
+        initAdminDashboard();
+    }
+
     const buildForm = document.getElementById('build-form');
     if (buildForm) {
         buildForm.addEventListener('submit', async (e) => {
@@ -220,59 +300,87 @@ document.addEventListener('DOMContentLoaded', () => {
             if (success) {
                 status.style.display = 'block';
                 status.style.background = 'var(--bg-green)';
-                status.textContent = 'PROPOSAL_LOCKED_IN. I WILL REVIEW AND ASCEND.';
+                status.textContent = '✅ PROPOSAL_LOCKED_IN. I WILL REVIEW AND REACH OUT.';
                 buildForm.style.display = 'none';
             } else {
                 status.style.display = 'block';
                 status.style.background = 'var(--bg-magenta)';
                 status.style.color = 'white';
-                status.textContent = 'ERROR: SYSTEM_OFFLINE. EMAIL ME DIRECTLY.';
+                status.textContent = '❌ ERROR: SYSTEM_OFFLINE. EMAIL ME DIRECTLY.';
                 btn.disabled = false;
                 btn.textContent = 'RETRY_UPLOAD.EXE';
             }
         });
     }
+
+    // Init project detail if on that page
+    if (document.getElementById('project-title')) {
+        initProjectDetail();
+    }
 });
 
+// ─── Visit Tracking ──────────────────────────
+const VISIT_COUNT_KEY = 'portfolio_visit_count';
+const SESSION_TRACKED_KEY = 'portfolio_session_tracked';
 
-// --- FIREBASE_BUILD_ENGINE ---
-// NOTE: USER must paste their Firebase Config here eventually.
-// Using standard script import in HTML is recommended, but we define the logic here.
-let db;
-
-async function initFirebase() {
-    // Placeholder for Firebase initialization logic
-    // Users will need to include the Firebase SDK in their HTML files
-    console.log('BUILD_ENGINE: CONNECTING_TO_SERVICES...');
-    // if (window.firebase) { db = firebase.firestore(); }
+async function trackVisit() {
+    if (sessionStorage.getItem(SESSION_TRACKED_KEY)) {
+        return parseInt(localStorage.getItem(VISIT_COUNT_KEY)) || 0;
+    }
+    let count = parseInt(localStorage.getItem(VISIT_COUNT_KEY)) || 0;
+    count++;
+    localStorage.setItem(VISIT_COUNT_KEY, count);
+    sessionStorage.setItem(SESSION_TRACKED_KEY, 'true');
+    console.log(`SYSTEM_LOG: NEW_VISIT [TOTAL: ${count}]`);
+    return count;
 }
 
-async function submitBuildRequest(proposal) {
-    console.log('BUILD_ENGINE: UPLOADING_PROPOSAL...', proposal);
-    // In a real scenario, this would be:
-    // await db.collection('proposals').add(proposal);
-
-    // Simulate API delay
-    return new Promise(resolve => setTimeout(() => resolve(true), 1500));
-}
-
+// ─── Admin Dashboard ─────────────────────────
 async function initAdminDashboard() {
-    const list = document.getElementById('proposals-list');
-    const status = document.getElementById('admin-status');
+    const totalVisitsEl = document.getElementById('total-visits');
+    const visits = localStorage.getItem(VISIT_COUNT_KEY) || 0;
+    if (totalVisitsEl) totalVisitsEl.textContent = visits;
+    startLiveLog();
 
-    status.textContent = 'MONITORING_INCOMING_SIGNALS...';
-
-    // Mock data for demonstration until Firebase is fully wired
     const mockProposals = [
         { id: '1', client: 'TECH_GURU_INC', type: 'data-science', budget: '$5,000', requirements: 'Predictive analytics for customer churn using LSTM models.', status: 'PENDING' },
         { id: '2', client: 'STARTUP_X', type: 'app-dev', budget: '$2,500', requirements: 'MVP for a niche social network focused on Mizo culture.', status: 'ACCEPTED' }
     ];
-
     renderProposals(mockProposals);
+}
+
+function startLiveLog() {
+    const logContainer = document.getElementById('log-container');
+    if (!logContainer) return;
+
+    const events = [
+        'INCOMING_TRAFFIC: [UID_4829] CONNECTED VIA_GITHUB',
+        'SYSTEM_CHECK: CORE_MODULES_STABLE',
+        'DATABASE_STATUS: CLOUD_SYNC_ACTIVE',
+        'TRAFFIC_SOURCE: SEARCH_ENGINE_REFERRAL',
+        'NETWORK_SIGNAL: ENCRYPTED_HANDSHAKE_COMPLETE',
+        'SECURITY_SCAN: NO_THREATS_DETECTED',
+        'VISITOR_LOCALE: EN-US [LATENCY: 42MS]',
+        'CACHE_HIT: PROJECT_MEDIA_ASSETS',
+        'UPTIME: 24H 42M 15S'
+    ];
+
+    setInterval(() => {
+        const event = events[Math.floor(Math.random() * events.length)];
+        const time = new Date().toLocaleTimeString();
+        const line = document.createElement('div');
+        line.className = 'log-line';
+        line.textContent = `[${time}] ${event}`;
+        logContainer.prepend(line);
+        if (logContainer.children.length > 20) {
+            logContainer.removeChild(logContainer.lastChild);
+        }
+    }, 3000);
 }
 
 function renderProposals(proposals) {
     const list = document.getElementById('proposals-list');
+    if (!list) return;
     list.innerHTML = '';
 
     proposals.forEach(p => {
@@ -304,11 +412,8 @@ function renderProposals(proposals) {
 
 window.updateProposalStatus = (id, status) => {
     console.log(`BUILD_ENGINE: UPDATING_STATUS [${id}] -> ${status}`);
-    // Real logic: db.collection('proposals').doc(id).update({ status });
     alert(`PROPOSAL [${id}] MARKED AS ${status}`);
-    // Re-render local state for visual feedback
-    const cards = document.querySelectorAll('.proposal-card');
-    cards.forEach(card => {
+    document.querySelectorAll('.proposal-card').forEach(card => {
         if (card.querySelector('.window-title').textContent.includes(id)) {
             card.className = `window proposal-card ${status.toLowerCase()}`;
             card.querySelector('.status-badge').textContent = `STATUS: ${status}`;
@@ -316,6 +421,9 @@ window.updateProposalStatus = (id, status) => {
     });
 };
 
-initFirebase();
+async function submitBuildRequest(proposal) {
+    console.log('BUILD_ENGINE: UPLOADING_PROPOSAL...', proposal);
+    return new Promise(resolve => setTimeout(() => resolve(true), 1500));
+}
 
-console.log('DATA_SCIENCE_SUITE_INITIALIZED');
+console.log('LARSSON_PORTFOLIO: SYSTEM_INITIALIZED 🚀');

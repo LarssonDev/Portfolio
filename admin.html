@@ -107,8 +107,37 @@
     </header>
 
     <main class="admin-page">
-        <h1>PROPOSAL_COMMAND_CENTER</h1>
-        <div id="admin-status" class="site-intro">RETRIVING_ENCRYPTED_SIGNALS...</div>
+        <div class="window telemetry-window" style="margin-bottom: 30px;">
+            <div class="window-header">
+                <span class="window-title">SYSTEM_TELEMETRY.LOG</span>
+            </div>
+            <div class="window-content">
+                <div class="telemetry-grid">
+                    <div class="metric-card">
+                        <span class="metric-value" id="total-visits">0</span>
+                        <span class="metric-label">TOTAL_VISITS</span>
+                    </div>
+                    <div class="metric-card">
+                        <span class="metric-value" id="active-sessions">1</span>
+                        <span class="metric-label">ACTIVE_SESSIONS</span>
+                    </div>
+                    <div class="metric-card">
+                        <span class="metric-value status-active" id="system-health">100%</span>
+                        <span class="metric-label">SYSTEM_HEALTH</span>
+                    </div>
+                </div>
+
+                <div class="window telemetry-log-window">
+                    <div class="window-header">
+                        <span class="window-title">LIVE_TRAFFIC_FEED</span>
+                    </div>
+                    <div class="log-container" id="log-container">
+                        <div class="log-glow"></div>
+                        <!-- Log entries will be injected here -->
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <div id="proposals-list">
             <!-- Cards will be injected here -->
