@@ -377,21 +377,37 @@ button,
     stroke-width: 2px;
 }
 
-.btn-primary:hover,
-.btn-secondary:hover,
-.btn-yellow:hover,
-.btn-green:hover,
-.btn-blue:hover,
-.btn-magenta:hover {
-    transform: translate(-3px, -3px);
-    box-shadow: var(--shadow-hover);
+/* ─── Buttons ─── */
+.btn-primary,
+.btn-secondary,
+.btn-yellow,
+.btn-green,
+.btn-blue,
+.btn-magenta {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 28px;
+    min-height: 48px;
+    /* Touch target */
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    text-decoration: none;
+    border: 3px solid var(--border-black);
+    transition: all 0.15s ease;
+    cursor: pointer;
+    justify-content: center;
 }
 
-button:active,
-.btn-primary:active,
-.btn-secondary:active {
-    transform: translate(4px, 4px);
-    box-shadow: 2px 2px 0px var(--border-black);
+.btn-primary {
+    background: var(--bg-yellow);
+}
+
+.btn-secondary {
+    background: white;
 }
 
 .btn-yellow {
@@ -842,6 +858,8 @@ button:active,
     align-items: center;
     justify-content: center;
     gap: 5px;
+    min-height: 44px;
+    /* Sufficient for smaller card buttons */
 }
 
 .card-btn-primary {
@@ -1416,12 +1434,14 @@ footer {
     .about-section,
     .tech-stack-section,
     .build-section {
-        padding: 70px 20px;
+        padding: 100px 20px;
+        /* Increased vertical breathing space */
     }
 
     .project-grid {
         grid-template-columns: 1fr;
-        gap: 28px;
+        gap: 40px;
+        /* Increased gap for better separation */
     }
 
     .card-img-wrap img {
@@ -1447,6 +1467,11 @@ footer {
     .contact-links a {
         width: 100%;
         text-align: center;
+        min-height: 48px;
+        /* Touch-friendly height */
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
     footer {
@@ -1454,8 +1479,7 @@ footer {
     }
 
     .footer-content h2 {
-        font-size: 2.5rem;
-        letter-spacing: -1.5px;
+        /* clamp already handles it */
     }
 
     .sticker-build-1,
@@ -1467,17 +1491,10 @@ footer {
 }
 
 @media (max-width: 480px) {
-    h1 {
-        font-size: 2.2rem;
-    }
-
-    h2 {
-        font-size: 1.6rem;
-    }
 
     .section-title {
-        font-size: 1.8rem;
         white-space: normal;
+        overflow-wrap: break-word;
     }
 
     .logo {
@@ -1503,6 +1520,6 @@ footer {
     }
 
     .footer-content h2 {
-        font-size: 2rem;
+        /* clamp already handles it */
     }
 }
