@@ -486,11 +486,12 @@ button:active,
 }
 
 .hero-tagline {
-    font-size: 1.3rem;
+    font-size: 1.15rem;
     font-weight: 600;
     margin: 12px 0 28px;
     color: #333;
-    line-height: 1.5;
+    line-height: 1.6;
+    flex-wrap: wrap;
 }
 
 .cursor-blink {
@@ -1235,7 +1236,7 @@ footer {
     }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 900px) {
 
     .cursor,
     .cursor-trail {
@@ -1274,6 +1275,11 @@ footer {
         gap: 0;
         padding: 10px 0;
         z-index: 999;
+    }
+
+    /* Hide the hire button on mobile — contact is in the footer */
+    nav .btn-yellow {
+        display: none;
     }
 
     nav.open {
