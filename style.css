@@ -212,6 +212,12 @@ nav {
     box-shadow: var(--shadow-sm);
 }
 
+.nav-active {
+    background: var(--bg-yellow) !important;
+    border: 2px solid var(--border-black) !important;
+    box-shadow: 3px 3px 0 black !important;
+}
+
 .hamburger {
     display: none;
     flex-direction: column;
@@ -797,6 +803,56 @@ button:active,
     font-size: 1.5rem;
     margin-bottom: 8px;
     letter-spacing: -0.5px;
+}
+
+/* ─── Card Action Buttons ─── */
+.card-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 16px;
+    flex-wrap: wrap;
+}
+
+.card-btn {
+    flex: 1;
+    min-width: 100px;
+    padding: 10px 14px;
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: 0.78rem;
+    letter-spacing: 0.8px;
+    text-decoration: none;
+    text-align: center;
+    border: 2.5px solid var(--border-black);
+    transition: all 0.15s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+.card-btn-primary {
+    background: var(--bg-yellow);
+    color: black;
+    box-shadow: 3px 3px 0 black;
+}
+
+.card-btn-primary:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 5px 5px 0 black;
+}
+
+.card-btn-secondary {
+    background: white;
+    color: black;
+    box-shadow: 3px 3px 0 black;
+}
+
+.card-btn-secondary:hover {
+    background: #111;
+    color: var(--bg-yellow);
+    transform: translate(-2px, -2px);
+    box-shadow: 5px 5px 0 black;
 }
 
 .project-info p {

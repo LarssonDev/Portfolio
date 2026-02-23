@@ -97,6 +97,25 @@ const revealObserver = new IntersectionObserver((entries) => {
 
 document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
+// ─── Active Nav Highlight ─────────────────────
+const sections = document.querySelectorAll('section[id], footer[id]');
+const navLinks = document.querySelectorAll('.nav-link[href^="#"]');
+
+const sectionObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            navLinks.forEach(link => {
+                link.classList.remove('nav-active');
+                if (link.getAttribute('href') === '#' + entry.target.id) {
+                    link.classList.add('nav-active');
+                }
+            });
+        }
+    });
+}, { threshold: 0.4 });
+
+sections.forEach(s => sectionObserver.observe(s));
+
 // ─── Button Press Effect ─────────────────────
 document.querySelectorAll('button, .btn-yellow, .btn-green, .btn-blue, .btn-magenta, .btn-primary, .btn-secondary').forEach(btn => {
     btn.addEventListener('mousedown', () => {
