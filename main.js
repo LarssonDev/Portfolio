@@ -169,7 +169,7 @@ const projectsData = {
         technical: 'Built using React Native for cross-platform efficiency. The backend leverages Firebase Realtime Database for instant synchronization across devices. Payments are handled via OAuth-secured Razorpay hooks, and geographical data is visualized using the Leaflet.js ecosystem.',
         screenshots: [],
         github: 'https://github.com/LarssonDev',
-        demo: null
+        apk: '#'
     },
     'anatomypro': {
         title: 'NOVA',
@@ -197,7 +197,7 @@ const projectsData = {
             { src: 'nova_screens/nova_config.jpg', caption: 'SYSTEM_CONFIG: Advanced local storage management.' }
         ],
         github: 'https://github.com/LarssonDev',
-        demo: null
+        apk: '#'
     },
     'spam-remover': {
         title: 'GMAIL SPAM REMOVER',
@@ -219,7 +219,7 @@ const projectsData = {
         technical: 'Uses a Scikit-Learn pipeline for text vectorisation (CountVectorizer) and classification. Processes data locally to ensure privacy. Integrates with the Gmail API via google-auth-oauthlib.',
         screenshots: [],
         github: 'https://github.com/LarssonDev',
-        demo: null
+        apk: null
     },
     'inbawk': {
         title: 'INBAWK CARDS',
@@ -248,9 +248,12 @@ const projectsData = {
             'inbawk/inbawk_6.jpg'
         ],
         github: 'https://github.com/LarssonDev',
-        demo: null
+        apk: '#'
     }
 };
+
+
+
 
 // ─── Project Detail Page ─────────────────────
 function initProjectDetail() {
@@ -287,12 +290,17 @@ function initProjectDetail() {
     // Action buttons
     const btnDemo = document.getElementById('btn-demo');
     if (btnDemo) {
-        if (project.demo) {
-            btnDemo.href = project.demo;
-        } else {
-            btnDemo.style.opacity = '0.4';
+        if (project.apk && project.apk !== '#') {
+            btnDemo.href = project.apk;
+            btnDemo.removeAttribute('style');
+        } else if (project.apk === '#') {
+            // Placeholder — APK not hosted yet
+            btnDemo.style.opacity = '0.5';
             btnDemo.style.pointerEvents = 'none';
-            btnDemo.title = 'No live demo available';
+            btnDemo.title = 'APK coming soon';
+        } else {
+            // No APK (e.g. Python project) — hide entirely
+            btnDemo.style.display = 'none';
         }
     }
 
