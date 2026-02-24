@@ -243,6 +243,7 @@ window.initProjectDetail = async function () {
     const map = {
         'project-title': project.title,
         'project-desc-text': project.description,
+        'technical-details': project.technical, // Fix missing mapping
         'info-platform': project.platform,
         'info-type': project.type,
         'info-stack': project.stack,
@@ -273,11 +274,15 @@ window.initProjectDetail = async function () {
     }
 
     const gallery = document.getElementById('project-gallery');
-    if (gallery && project.screenshots) {
+    const galleryWrapper = document.getElementById('gallery-wrapper');
+    if (gallery && project.screenshots && project.screenshots.length > 0) {
+        if (galleryWrapper) galleryWrapper.style.display = 'block'; // Show if screenshots exist
         gallery.innerHTML = project.screenshots.map(s => {
             const src = typeof s === 'string' ? s : s.src;
             return `<img src="${src}" loading="lazy">`;
         }).join('');
+    } else if (galleryWrapper) {
+        galleryWrapper.style.display = 'none';
     }
 
     if (window.lucide) lucide.createIcons();
