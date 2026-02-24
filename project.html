@@ -418,10 +418,18 @@
                 <button class="modal-close" id="close-modal">&times;</button>
             </div>
             <div class="window-content" style="text-align:center; padding: 40px 30px;">
-                <p style="margin-bottom:30px; font-size:1rem; line-height:1.5; color: #333; font-weight: 500;">
+                <p style="margin-bottom:20px; font-size:1rem; line-height:1.5; color: #333; font-weight: 500;">
                     PLEASE VERIFY YOUR IDENTITY WITH GOOGLE TO ACCESS THE BUILD.
                     THIS ENSURES WE LOG LEGITIMATE GMAIL ADDRESSES FOR OUR RECORDS.
                 </p>
+
+                <div class="input-group" style="margin-bottom: 25px; text-align: left;">
+                    <label
+                        style="font-family: var(--font-heading); font-weight: 800; font-size: 0.75rem; letter-spacing: 1px; color: #555;">USER_IDENTIFIER
+                        (NAME)</label>
+                    <input type="text" id="user-name-input" placeholder="ENTER YOUR FULL NAME" required
+                        style="width: 100%; padding: 12px; border: 2px solid black; font-family: var(--font-body); font-weight: 600; box-shadow: 4px 4px 0px black; margin-top: 5px; outline: none;">
+                </div>
 
                 <div style="display: flex; justify-content: center;">
                     <button id="google-signin-btn" class="submit-btn" style="

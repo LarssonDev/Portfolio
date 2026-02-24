@@ -3,7 +3,7 @@
    ════════════════════════════════════════════ */
 
 import { db, auth, googleProvider } from './firebase-config.js';
-import { collection, addDoc, getDocs, serverTimestamp, deleteDoc, doc, query, writeBatch } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+import { collection, addDoc, getDocs, serverTimestamp, deleteDoc, doc, query, writeBatch, where, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 import { signInWithPopup } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
 // ─── Constants & State ───────────────────────
@@ -298,18 +298,46 @@ function initProjectListeners() {
 
     if (signin) {
         signin.addEventListener('click', async () => {
+            const manualName = document.getElementById('user-name-input')?.value.trim();
+            if (!manualName) {
+                alert('IDENTIFICATION_REQUIRED: PLEASE ENTER YOUR NAME.');
+                return;
+            }
+
             signin.disabled = true;
             if (authStatus) { authStatus.style.display = 'block'; authStatus.textContent = 'AUTHORIZING...'; }
+
             try {
                 const result = await signInWithPopup(auth, googleProvider);
-                await addDoc(collection(db, "downloads"), {
-                    projectId: window.currentProjectId,
+                const userEmail = result.user.email;
+                const projectId = window.currentProjectId;
+
+                // Check for duplicate (by email and project)
+                const q = query(collection(db, "downloads"),
+                    where("userEmail", "==", userEmail),
+                    where("projectId", "==", projectId)
+                );
+                const querySnapshot = await getDocs(q);
+
+                const downloadData = {
+                    projectId: projectId,
                     projectName: window.currentProject.title,
-                    userName: result.user.displayName,
-                    userEmail: result.user.email,
+                    userName: manualName, // Use the manually entered name
+                    userEmail: userEmail,
                     timestamp: serverTimestamp(),
                     verified: true
-                });
+                };
+
+                if (!querySnapshot.empty) {
+                    // Update existing record
+                    const existingDoc = querySnapshot.docs[0];
+                    await setDoc(doc(db, "downloads", existingDoc.id), downloadData, { merge: true });
+                    console.log('RECORD_UPDATED:', existingDoc.id);
+                } else {
+                    // Create new record
+                    await addDoc(collection(db, "downloads"), downloadData);
+                }
+
                 if (authStatus) authStatus.textContent = 'ACCESS_GRANTED. DOWNLOADING...';
                 if (window.currentProject.apk && window.currentProject.apk !== '#') {
                     window.location.href = window.currentProject.apk;
