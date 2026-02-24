@@ -497,7 +497,7 @@ window.initAdminDashboard = async function () {
 
 // ─── Start ───────────────────────────────────
 
-console.log('LARSSON_MODULE: BOOTING...');
+console.log('LARSSON.STUDIO: BOOTING...');
 
 initCursor();
 initInteractions();
