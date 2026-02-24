@@ -81,7 +81,7 @@ const projectsData = {
         technical: 'Uses a Scikit-Learn pipeline for text vectorisation (CountVectorizer) and classification. Processes data locally to ensure privacy. Integrates with the Gmail API via google-auth-oauthlib.',
         screenshots: [],
         github: 'https://github.com/LarssonCodes',
-        apk: null
+        apk: '#'
     },
     'inbawk': {
         title: 'INBAWK CARDS',
@@ -262,6 +262,23 @@ window.initProjectDetail = async function () {
     const githubLink = document.getElementById('btn-github');
     if (githubLink) githubLink.href = project.github;
 
+    // Handle Download button availability
+    const trigger = document.getElementById('btn-download-trigger');
+    if (trigger) {
+        if (!project.apk || project.apk === '#') {
+            trigger.innerHTML = `<i data-lucide="clock" style="width:16px;height:16px;"></i> COMING_SOON`;
+            trigger.classList.add('btn-disabled');
+            trigger.style.opacity = '0.5';
+            trigger.style.cursor = 'not-allowed';
+            trigger.onclick = (e) => e.preventDefault();
+        } else {
+            trigger.innerHTML = `<i data-lucide="download" style="width:16px;height:16px;"></i> DOWNLOAD_APK`;
+            trigger.classList.remove('btn-disabled');
+            trigger.style.opacity = '1';
+            trigger.style.cursor = 'pointer';
+        }
+    }
+
     // Lists
     const features = document.getElementById('project-features');
     if (features && project.features) {
@@ -297,7 +314,13 @@ function initProjectListeners() {
     const authStatus = document.getElementById('auth-status');
     const feedbackForm = document.getElementById('feedback-form');
 
-    if (trigger && modal) trigger.addEventListener('click', () => modal.style.display = 'flex');
+    if (trigger && modal) {
+        trigger.addEventListener('click', () => {
+            if (project.apk && project.apk !== '#') {
+                modal.style.display = 'flex';
+            }
+        });
+    }
     if (closer && modal) closer.addEventListener('click', () => modal.style.display = 'none');
     window.addEventListener('click', (e) => { if (e.target === modal) modal.style.display = 'none'; });
 
