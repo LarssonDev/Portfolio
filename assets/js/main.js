@@ -41,7 +41,7 @@ const projectsData = {
         type: 'Health & Productivity',
         stack: 'React Native + Skia',
         image: 'assets/images/anatomy_pulse.png',
-        description: 'NOVA maps daily habits to a 3D anatomy model. As you build consistency, different muscle groups and organs glow — making growth visible and motivating.',
+        description: 'NOVA maps daily habits to a 2D anatomy model. As you build consistency, different muscle groups and organs glow — making growth visible and motivating.',
         tags: ['React Native', 'TypeScript', 'Skia', 'SVG Animation', 'Async Storage'],
         features: [
             'Interactive SVG anatomy model with dynamic color tinting',
