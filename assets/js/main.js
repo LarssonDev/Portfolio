@@ -30,7 +30,7 @@ const projectsData = {
         ],
         technical: 'Built using React Native for cross-platform efficiency. The backend leverages Firebase Realtime Database for instant synchronization across devices. Payments are handled via OAuth-secured Razorpay hooks, and geographical data is visualized using the Leaflet.js ecosystem.',
         screenshots: [],
-        github: 'https://github.com/LarssonDev',
+        github: 'https://github.com/LarssonCodes',
         apk: '#'
     },
     'anatomypro': {
@@ -58,7 +58,7 @@ const projectsData = {
             { src: 'assets/images/projects/nova_analytics_1.jpg', caption: 'SYSTEM_BALANCE: Granular analysis.' },
             { src: 'assets/images/projects/nova_config.jpg', caption: 'SYSTEM_CONFIG: Advanced local storage management.' }
         ],
-        github: 'https://github.com/LarssonDev',
+        github: 'https://github.com/LarssonCodes',
         apk: 'apk/nova.apk'
     },
     'spam-remover': {
@@ -80,7 +80,7 @@ const projectsData = {
         ],
         technical: 'Uses a Scikit-Learn pipeline for text vectorisation (CountVectorizer) and classification. Processes data locally to ensure privacy. Integrates with the Gmail API via google-auth-oauthlib.',
         screenshots: [],
-        github: 'https://github.com/LarssonDev',
+        github: 'https://github.com/LarssonCodes',
         apk: null
     },
     'inbawk': {
@@ -109,7 +109,7 @@ const projectsData = {
             'assets/images/projects/inbawk_5.jpg',
             'assets/images/projects/inbawk_6.jpg'
         ],
-        github: 'https://github.com/LarssonDev',
+        github: 'https://github.com/LarssonCodes',
         apk: '#'
     }
 };
