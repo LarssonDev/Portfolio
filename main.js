@@ -2,152 +2,14 @@
    LARSSON PORTFOLIO — MAIN JS
    ════════════════════════════════════════════ */
 
-// ─── Custom Cursor ───────────────────────────
-const cursor = document.querySelector('.cursor');
-const cursorTrail = document.querySelector('.cursor-trail');
-let mouseX = 0, mouseY = 0;
-let trailX = 0, trailY = 0;
+import { db, auth, googleProvider } from './firebase-config.js';
+import { collection, addDoc, getDocs, serverTimestamp } from "firebase/firestore";
+import { signInWithPopup } from "firebase/auth";
 
-document.addEventListener('mousemove', (e) => {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-    if (cursor) {
-        cursor.style.left = mouseX + 'px';
-        cursor.style.top = mouseY + 'px';
-    }
-});
+// ─── Constants & State ───────────────────────
+const VISIT_COUNT_KEY = 'portfolio_visit_count';
+const SESSION_TRACKED_KEY = 'portfolio_session_tracked';
 
-// Smooth trailing cursor
-function animateTrail() {
-    trailX += (mouseX - trailX) * 0.15;
-    trailY += (mouseY - trailY) * 0.15;
-    if (cursorTrail) {
-        cursorTrail.style.left = trailX + 'px';
-        cursorTrail.style.top = trailY + 'px';
-    }
-    requestAnimationFrame(animateTrail);
-}
-animateTrail();
-
-// Cursor grow on links/buttons
-document.querySelectorAll('a, button, .tech-item, .project-card').forEach(el => {
-    el.addEventListener('mouseenter', () => {
-        if (cursor) {
-            cursor.style.width = '22px';
-            cursor.style.height = '22px';
-            cursor.style.background = 'var(--bg-yellow)';
-        }
-    });
-    el.addEventListener('mouseleave', () => {
-        if (cursor) {
-            cursor.style.width = '14px';
-            cursor.style.height = '14px';
-            cursor.style.background = 'var(--bg-magenta)';
-        }
-    });
-});
-
-// ─── Hamburger Menu ──────────────────────────
-const hamburger = document.getElementById('hamburger');
-const nav = document.querySelector('nav');
-
-if (hamburger && nav) {
-    hamburger.addEventListener('click', () => {
-        nav.classList.toggle('open');
-    });
-
-    // Close on link click
-    nav.querySelectorAll('.nav-link').forEach(link => {
-        link.addEventListener('click', () => nav.classList.remove('open'));
-    });
-}
-
-// ─── Floating Box Parallax ───────────────────
-document.addEventListener('mousemove', (e) => {
-    const boxes = document.querySelectorAll('.floating-box');
-    const cx = window.innerWidth / 2;
-    const cy = window.innerHeight / 2;
-    const dx = (cx - e.clientX) / 55;
-    const dy = (cy - e.clientY) / 55;
-
-    boxes.forEach((box, i) => {
-        const f = (i + 1) * 0.35;
-        const rot = i * 3 - 5;
-        box.style.transform = `translate(${dx * f}px, ${dy * f}px) rotate(${rot}deg)`;
-    });
-});
-
-// ─── Scroll Reveal ───────────────────────────
-const revealObserver = new IntersectionObserver((entries) => {
-    entries.forEach((entry, idx) => {
-        if (entry.isIntersecting) {
-            // Stagger cards in a grid
-            const siblings = entry.target.parentElement.querySelectorAll('.reveal');
-            let delay = 0;
-            siblings.forEach((sib, i) => {
-                if (sib === entry.target) delay = i * 80;
-            });
-            setTimeout(() => {
-                entry.target.classList.add('visible');
-            }, delay);
-            revealObserver.unobserve(entry.target);
-        }
-    });
-}, { threshold: 0.12 });
-
-document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
-
-// ─── Active Nav Highlight ─────────────────────
-const sections = document.querySelectorAll('section[id], footer[id]');
-const navLinks = document.querySelectorAll('.nav-link[href^="#"]');
-
-const sectionObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            navLinks.forEach(link => {
-                link.classList.remove('nav-active');
-                if (link.getAttribute('href') === '#' + entry.target.id) {
-                    link.classList.add('nav-active');
-                }
-            });
-        }
-    });
-}, { threshold: 0.4 });
-
-sections.forEach(s => sectionObserver.observe(s));
-
-// ─── Button Press Effect ─────────────────────
-document.querySelectorAll('button, .btn-yellow, .btn-green, .btn-blue, .btn-magenta, .btn-primary, .btn-secondary').forEach(btn => {
-    btn.addEventListener('mousedown', () => {
-        btn.style.transform = 'translate(4px, 4px)';
-        btn.style.boxShadow = '2px 2px 0px black';
-    });
-    btn.addEventListener('mouseup', () => {
-        btn.style.transform = '';
-        btn.style.boxShadow = '';
-    });
-    btn.addEventListener('mouseleave', () => {
-        btn.style.transform = '';
-        btn.style.boxShadow = '';
-    });
-});
-
-// ─── Sticker Hover Tilt ──────────────────────
-document.querySelectorAll('.sticker').forEach(sticker => {
-    sticker.addEventListener('mousemove', (e) => {
-        const rect = sticker.getBoundingClientRect();
-        const cx = rect.left + rect.width / 2;
-        const cy = rect.top + rect.height / 2;
-        const rx = (e.clientY - cy) / 5;
-        const ry = -(e.clientX - cx) / 5;
-        sticker.style.transform = `perspective(300px) rotateX(${rx}deg) rotateY(${ry}deg) scale(1.1)`;
-    });
-    sticker.addEventListener('mouseleave', () => {
-        sticker.style.transform = '';
-    });
-});
-
-// ─── Project Data ────────────────────────────
 const projectsData = {
     'ila': {
         title: 'ILA COMMUNITY',
@@ -197,7 +59,7 @@ const projectsData = {
             { src: 'nova_screens/nova_config.jpg', caption: 'SYSTEM_CONFIG: Advanced local storage management.' }
         ],
         github: 'https://github.com/LarssonDev',
-        apk: '#'
+        apk: 'apk/nova.apk'
     },
     'spam-remover': {
         title: 'GMAIL SPAM REMOVER',
@@ -252,274 +114,292 @@ const projectsData = {
     }
 };
 
+// ─── UI Utilities ────────────────────────────
 
+// 1. Custom Cursor
+const cursor = document.querySelector('.cursor');
+const cursorTrail = document.querySelector('.cursor-trail');
+let mouseX = 0, mouseY = 0;
+let trailX = 0, trailY = 0;
 
-
-// ─── Project Detail Page ─────────────────────
-function initProjectDetail() {
-    const params = new URLSearchParams(window.location.search);
-    const projectId = params.get('id');
-    const project = projectsData[projectId];
-
-    if (!project) {
-        const titleEl = document.getElementById('project-title');
-        if (titleEl) titleEl.textContent = 'PROJECT_NOT_FOUND.ERR';
-        return;
-    }
-
-    // Update page title
-    document.title = project.title + ' | LARSSON.DS';
-
-    // Window & hero
-    const wtEl = document.getElementById('window-title');
-    if (wtEl) wtEl.textContent = project.windowTitle;
-
-    const heroImg = document.getElementById('project-hero-img');
-    if (heroImg) {
-        heroImg.src = project.image;
-        heroImg.alt = project.title;
-    }
-
-    // Title + tagline
-    const titleEl = document.getElementById('project-title');
-    if (titleEl) titleEl.textContent = project.title;
-
-    const taglineEl = document.getElementById('project-tagline');
-    if (taglineEl) taglineEl.textContent = project.tagline || '';
-
-    // Action buttons
-    const btnDemo = document.getElementById('btn-demo');
-    if (btnDemo) {
-        if (project.apk && project.apk !== '#') {
-            btnDemo.href = project.apk;
-            btnDemo.removeAttribute('style');
-        } else if (project.apk === '#') {
-            // Placeholder — APK not hosted yet
-            btnDemo.style.opacity = '0.5';
-            btnDemo.style.pointerEvents = 'none';
-            btnDemo.title = 'APK coming soon';
-        } else {
-            // No APK (e.g. Python project) — hide entirely
-            btnDemo.style.display = 'none';
+function initCursor() {
+    document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        if (cursor) {
+            cursor.style.left = mouseX + 'px';
+            cursor.style.top = mouseY + 'px';
         }
+    });
+
+    function animateTrail() {
+        trailX += (mouseX - trailX) * 0.15;
+        trailY += (mouseY - trailY) * 0.15;
+        if (cursorTrail) {
+            cursorTrail.style.left = trailX + 'px';
+            cursorTrail.style.top = trailY + 'px';
+        }
+        requestAnimationFrame(animateTrail);
     }
+    animateTrail();
 
-    const btnGithub = document.getElementById('btn-github');
-    if (btnGithub && project.github) btnGithub.href = project.github;
-
-    // Quick info panel
-    const infoPlatform = document.getElementById('info-platform');
-    if (infoPlatform) infoPlatform.textContent = project.platform || '—';
-
-    const infoType = document.getElementById('info-type');
-    if (infoType) infoType.textContent = project.type || '—';
-
-    const infoStack = document.getElementById('info-stack');
-    if (infoStack) infoStack.textContent = project.stack || '—';
-
-    // Overview
-    const descEl = document.getElementById('project-desc-text');
-    if (descEl) descEl.textContent = project.description;
-
-    // Features
-    const featuresList = document.getElementById('project-features');
-    if (featuresList && project.features) {
-        project.features.forEach(feature => {
-            const li = document.createElement('li');
-            li.textContent = feature;
-            featuresList.appendChild(li);
-        });
-    }
-
-    // Tech tags
-    const tagsEl = document.getElementById('project-tags');
-    if (tagsEl && project.tags) {
-        project.tags.forEach(tag => {
-            const span = document.createElement('span');
-            span.className = 'tech-tag';
-            span.textContent = tag;
-            tagsEl.appendChild(span);
-        });
-    }
-
-    // Technical notes
-    const techEl = document.getElementById('technical-details');
-    if (techEl) techEl.textContent = project.technical || 'Technical architecture details coming soon.';
-
-    // Screenshots gallery
-    const gallery = document.getElementById('project-gallery');
-    const galleryWrapper = document.getElementById('gallery-wrapper');
-    if (gallery && project.screenshots && project.screenshots.length > 0) {
-        galleryWrapper.style.display = 'block';
-        project.screenshots.forEach(screenshot => {
-            const img = document.createElement('img');
-            img.src = typeof screenshot === 'string' ? screenshot : screenshot.src;
-            img.alt = typeof screenshot === 'string' ? project.title : (screenshot.caption || project.title);
-            img.loading = 'lazy';
-            gallery.appendChild(img);
-        });
-    }
-
-    // Lucide icons refresh
-    if (window.lucide) lucide.createIcons();
-}
-
-// ─── Build Form ──────────────────────────────
-document.addEventListener('DOMContentLoaded', () => {
-    trackVisit();
-
-    if (document.getElementById('proposals-list')) {
-        initAdminDashboard();
-    }
-
-    const buildForm = document.getElementById('build-form');
-    if (buildForm) {
-        buildForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const btn = document.getElementById('submit-btn');
-            const status = document.getElementById('status-msg');
-
-            btn.textContent = 'UPLOADING_LOGIC...';
-            btn.disabled = true;
-
-            const proposal = {
-                client: document.getElementById('client-name').value,
-                type: document.getElementById('project-type').value,
-                budget: document.getElementById('budget').value,
-                requirements: document.getElementById('requirements').value,
-                timestamp: new Date().toISOString(),
-                status: 'PENDING'
-            };
-
-            const success = await submitBuildRequest(proposal);
-
-            if (success) {
-                status.style.display = 'block';
-                status.style.background = 'var(--bg-green)';
-                status.textContent = '✅ PROPOSAL_LOCKED_IN. I WILL REVIEW AND REACH OUT.';
-                buildForm.style.display = 'none';
-            } else {
-                status.style.display = 'block';
-                status.style.background = 'var(--bg-magenta)';
-                status.style.color = 'white';
-                status.textContent = '❌ ERROR: SYSTEM_OFFLINE. EMAIL ME DIRECTLY.';
-                btn.disabled = false;
-                btn.textContent = 'RETRY_UPLOAD.EXE';
+    document.querySelectorAll('a, button, .tech-item, .project-card').forEach(el => {
+        el.addEventListener('mouseenter', () => {
+            if (cursor) {
+                cursor.style.width = '22px'; cursor.style.height = '22px';
+                cursor.style.background = 'var(--bg-yellow)';
             }
         });
-    }
+        el.addEventListener('mouseleave', () => {
+            if (cursor) {
+                cursor.style.width = '14px'; cursor.style.height = '14px';
+                cursor.style.background = 'var(--bg-magenta)';
+            }
+        });
+    });
+}
 
-    // Init project detail if on that page
-    if (document.getElementById('project-title')) {
-        initProjectDetail();
-    }
-});
+// 2. Scroll Reveal
+const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+            const parent = entry.target.parentElement;
+            const siblings = parent ? parent.querySelectorAll('.reveal') : [entry.target];
+            let delay = 0;
+            siblings.forEach((sib, i) => { if (sib === entry.target) delay = i * 80; });
+            setTimeout(() => { if (entry.target) entry.target.classList.add('visible'); }, delay);
+            revealObserver.unobserve(entry.target);
+        }
+    });
+}, { threshold: 0.1 });
 
-// ─── Visit Tracking ──────────────────────────
-const VISIT_COUNT_KEY = 'portfolio_visit_count';
-const SESSION_TRACKED_KEY = 'portfolio_session_tracked';
+function initReveal() {
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+    // Failsafe
+    setTimeout(() => {
+        document.querySelectorAll('.reveal:not(.visible)').forEach(el => el.classList.add('visible'));
+    }, 2000);
+}
+
+// 3. Interaction Effects
+function initInteractions() {
+    // Parallax
+    document.addEventListener('mousemove', (e) => {
+        const boxes = document.querySelectorAll('.floating-box');
+        const cx = window.innerWidth / 2;
+        const cy = window.innerHeight / 2;
+        const dx = (cx - e.clientX) / 55;
+        const dy = (cy - e.clientY) / 55;
+        boxes.forEach((box, i) => {
+            const f = (i + 1) * 0.35;
+            box.style.transform = `translate(${dx * f}px, ${dy * f}px) rotate(${i * 3 - 5}deg)`;
+        });
+    });
+
+    // Stickers
+    document.querySelectorAll('.sticker').forEach(sticker => {
+        sticker.addEventListener('mousemove', (e) => {
+            const rect = sticker.getBoundingClientRect();
+            const cx = rect.left + rect.width / 2;
+            const cy = rect.top + rect.height / 2;
+            const rx = (e.clientY - cy) / 5;
+            const ry = -(e.clientX - cx) / 5;
+            sticker.style.transform = `perspective(300px) rotateX(${rx}deg) rotateY(${ry}deg) scale(1.1)`;
+        });
+        sticker.addEventListener('mouseleave', () => sticker.style.transform = '');
+    });
+
+    // Nav
+    const hamburger = document.getElementById('hamburger');
+    const nav = document.querySelector('nav');
+    if (hamburger && nav) {
+        hamburger.addEventListener('click', () => nav.classList.toggle('open'));
+        nav.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => nav.classList.remove('open'));
+        });
+    }
+}
+
+// ─── Core Logic ──────────────────────────────
 
 async function trackVisit() {
-    if (sessionStorage.getItem(SESSION_TRACKED_KEY)) {
-        return parseInt(localStorage.getItem(VISIT_COUNT_KEY)) || 0;
-    }
+    if (sessionStorage.getItem(SESSION_TRACKED_KEY)) return;
     let count = parseInt(localStorage.getItem(VISIT_COUNT_KEY)) || 0;
     count++;
     localStorage.setItem(VISIT_COUNT_KEY, count);
     sessionStorage.setItem(SESSION_TRACKED_KEY, 'true');
-    console.log(`SYSTEM_LOG: NEW_VISIT [TOTAL: ${count}]`);
-    return count;
+    console.log('SYSTEM_LOG: VISIT_RECORDED');
 }
 
-// ─── Admin Dashboard ─────────────────────────
-async function initAdminDashboard() {
-    const totalVisitsEl = document.getElementById('total-visits');
-    const visits = localStorage.getItem(VISIT_COUNT_KEY) || 0;
-    if (totalVisitsEl) totalVisitsEl.textContent = visits;
-    startLiveLog();
+window.initProjectDetail = async function () {
+    const urlParams = new URLSearchParams(window.location.search);
+    const projectId = urlParams.get('id');
+    const project = projectsData[projectId];
+    if (!project) return;
 
-    const mockProposals = [
-        { id: '1', client: 'TECH_GURU_INC', type: 'data-science', budget: '$5,000', requirements: 'Predictive analytics for customer churn using LSTM models.', status: 'PENDING' },
-        { id: '2', client: 'STARTUP_X', type: 'app-dev', budget: '$2,500', requirements: 'MVP for a niche social network focused on Mizo culture.', status: 'ACCEPTED' }
-    ];
-    renderProposals(mockProposals);
-}
+    window.currentProject = project;
+    window.currentProjectId = projectId;
 
-function startLiveLog() {
-    const logContainer = document.getElementById('log-container');
-    if (!logContainer) return;
+    const map = {
+        'project-title': project.title,
+        'project-desc-text': project.description,
+        'info-platform': project.platform,
+        'info-type': project.type,
+        'info-stack': project.stack,
+        'project-tagline': project.tagline,
+        'window-title': project.windowTitle
+    };
 
-    const events = [
-        'INCOMING_TRAFFIC: [UID_4829] CONNECTED VIA_GITHUB',
-        'SYSTEM_CHECK: CORE_MODULES_STABLE',
-        'DATABASE_STATUS: CLOUD_SYNC_ACTIVE',
-        'TRAFFIC_SOURCE: SEARCH_ENGINE_REFERRAL',
-        'NETWORK_SIGNAL: ENCRYPTED_HANDSHAKE_COMPLETE',
-        'SECURITY_SCAN: NO_THREATS_DETECTED',
-        'VISITOR_LOCALE: EN-US [LATENCY: 42MS]',
-        'CACHE_HIT: PROJECT_MEDIA_ASSETS',
-        'UPTIME: 24H 42M 15S'
-    ];
+    for (let id in map) {
+        const el = document.getElementById(id);
+        if (el) el.textContent = map[id];
+    }
 
-    setInterval(() => {
-        const event = events[Math.floor(Math.random() * events.length)];
-        const time = new Date().toLocaleTimeString();
-        const line = document.createElement('div');
-        line.className = 'log-line';
-        line.textContent = `[${time}] ${event}`;
-        logContainer.prepend(line);
-        if (logContainer.children.length > 20) {
-            logContainer.removeChild(logContainer.lastChild);
-        }
-    }, 3000);
-}
+    const heroImg = document.getElementById('project-hero-img');
+    if (heroImg) heroImg.src = project.image;
 
-function renderProposals(proposals) {
-    const list = document.getElementById('proposals-list');
-    if (!list) return;
-    list.innerHTML = '';
+    const githubLink = document.getElementById('btn-github');
+    if (githubLink) githubLink.href = project.github;
 
-    proposals.forEach(p => {
-        const card = document.createElement('div');
-        card.className = `window proposal-card ${p.status.toLowerCase()}`;
-        card.innerHTML = `
-            <div class="window-header">
-                <span class="window-title">PROPOSAL_ID_${p.id}.JSON</span>
-            </div>
-            <div class="window-content">
-                <div class="proposal-meta">
-                    <span>CLIENT: ${p.client}</span>
-                    <span>TYPE: ${p.type.toUpperCase()}</span>
-                </div>
-                <div class="proposal-details">
-                    <h3>REQUEST: ${p.budget}</h3>
-                    <p>${p.requirements}</p>
-                    <div class="status-badge">STATUS: ${p.status}</div>
-                </div>
-                <div class="admin-actions">
-                    <button class="admin-btn btn-accept" onclick="updateProposalStatus('${p.id}', 'ACCEPTED')">ACCEPT</button>
-                    <button class="admin-btn btn-decline" onclick="updateProposalStatus('${p.id}', 'DECLINED')">DECLINE</button>
-                </div>
-            </div>
-        `;
-        list.appendChild(card);
-    });
-}
+    // Lists
+    const features = document.getElementById('project-features');
+    if (features && project.features) {
+        features.innerHTML = project.features.map(f => `<li>${f}</li>`).join('');
+    }
 
-window.updateProposalStatus = (id, status) => {
-    console.log(`BUILD_ENGINE: UPDATING_STATUS [${id}] -> ${status}`);
-    alert(`PROPOSAL [${id}] MARKED AS ${status}`);
-    document.querySelectorAll('.proposal-card').forEach(card => {
-        if (card.querySelector('.window-title').textContent.includes(id)) {
-            card.className = `window proposal-card ${status.toLowerCase()}`;
-            card.querySelector('.status-badge').textContent = `STATUS: ${status}`;
-        }
-    });
+    const tags = document.getElementById('project-tags');
+    if (tags && project.tags) {
+        tags.innerHTML = project.tags.map(t => `<span class="tech-tag">${t}</span>`).join('');
+    }
+
+    const gallery = document.getElementById('project-gallery');
+    if (gallery && project.screenshots) {
+        gallery.innerHTML = project.screenshots.map(s => {
+            const src = typeof s === 'string' ? s : s.src;
+            return `<img src="${src}" loading="lazy">`;
+        }).join('');
+    }
+
+    if (window.lucide) lucide.createIcons();
+    initProjectListeners();
 };
 
-async function submitBuildRequest(proposal) {
-    console.log('BUILD_ENGINE: UPLOADING_PROPOSAL...', proposal);
-    return new Promise(resolve => setTimeout(() => resolve(true), 1500));
+function initProjectListeners() {
+    const modal = document.getElementById('download-modal');
+    const trigger = document.getElementById('btn-download-trigger');
+    const closer = document.getElementById('close-modal');
+    const signin = document.getElementById('google-signin-btn');
+    const authStatus = document.getElementById('auth-status');
+    const feedbackForm = document.getElementById('feedback-form');
+
+    if (trigger && modal) trigger.addEventListener('click', () => modal.style.display = 'flex');
+    if (closer && modal) closer.addEventListener('click', () => modal.style.display = 'none');
+    window.addEventListener('click', (e) => { if (e.target === modal) modal.style.display = 'none'; });
+
+    if (signin) {
+        signin.addEventListener('click', async () => {
+            signin.disabled = true;
+            if (authStatus) { authStatus.style.display = 'block'; authStatus.textContent = 'AUTHORIZING...'; }
+            try {
+                const result = await signInWithPopup(auth, googleProvider);
+                await addDoc(collection(db, "downloads"), {
+                    projectId: window.currentProjectId,
+                    projectName: window.currentProject.title,
+                    userName: result.user.displayName,
+                    userEmail: result.user.email,
+                    timestamp: serverTimestamp(),
+                    verified: true
+                });
+                if (authStatus) authStatus.textContent = 'ACCESS_GRANTED. DOWNLOADING...';
+                if (window.currentProject.apk && window.currentProject.apk !== '#') {
+                    window.location.href = window.currentProject.apk;
+                }
+            } catch (e) {
+                if (authStatus) authStatus.textContent = 'ERROR: ' + e.message;
+                signin.disabled = false;
+            }
+        });
+    }
+
+    if (feedbackForm) {
+        feedbackForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = feedbackForm.querySelector('button');
+            const status = document.getElementById('feedback-status');
+            btn.disabled = true;
+            try {
+                await addDoc(collection(db, "feedback"), {
+                    projectId: window.currentProjectId,
+                    projectName: window.currentProject.title,
+                    text: document.getElementById('feedback-text').value,
+                    timestamp: serverTimestamp()
+                });
+                if (status) { status.style.display = 'block'; status.textContent = 'FEEDBACK_RECEIVED!'; }
+                feedbackForm.reset();
+            } finally {
+                btn.disabled = false;
+            }
+        });
+    }
 }
 
-console.log('LARSSON_PORTFOLIO: SYSTEM_INITIALIZED 🚀');
+window.initAdminDashboard = async function () {
+    const downloadsBody = document.getElementById('downloads-body');
+    const feedbackList = document.getElementById('feedback-list');
+    const diag = document.getElementById('admin-diagnostics');
+    const log = (m) => { if (diag) diag.textContent = m; console.log(m); };
+
+    log('CONNECTING...');
+    try {
+        const snapshot = await getDocs(collection(db, "downloads"));
+        const docs = [];
+        snapshot.forEach(d => docs.push(d.data()));
+        docs.sort((a, b) => (b.timestamp?.toDate() || 0) - (a.timestamp?.toDate() || 0));
+
+        if (downloadsBody) {
+            downloadsBody.innerHTML = docs.map(d => `
+                <tr>
+                    <td>${d.projectName || '—'}</td>
+                    <td>${d.userName || '—'}</td>
+                    <td>${d.userEmail || '—'}</td>
+                    <td>${d.verified ? '[VERIFIED]' : '[MANUAL]'}</td>
+                    <td>${d.timestamp ? d.timestamp.toDate().toLocaleString() : '—'}</td>
+                </tr>
+            `).join('') || '<tr><td colspan="5">NO_DATA</td></tr>';
+        }
+
+        const feedbackSnap = await getDocs(collection(db, "feedback"));
+        if (feedbackList) {
+            feedbackList.innerHTML = '';
+            feedbackSnap.forEach(doc => {
+                const data = doc.data();
+                feedbackList.innerHTML += `<div class="feedback-entry">${data.projectName}: ${data.text}</div>`;
+            });
+        }
+        log('COMPLETE');
+    } catch (e) {
+        log('ERROR: ' + e.message);
+    }
+};
+
+// ─── Start ───────────────────────────────────
+
+console.log('LARSSON_MODULE: BOOTING...');
+
+initCursor();
+initInteractions();
+trackVisit();
+initReveal();
+
+if (document.getElementById('proposals-list')) window.initAdminDashboard();
+if (document.getElementById('project-title')) window.initProjectDetail();
+
+const buildForm = document.getElementById('build-form');
+if (buildForm) {
+    buildForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const status = document.getElementById('status-msg');
+        if (status) { status.style.display = 'block'; status.textContent = 'PROPOSAL_LOCKED_IN!'; }
+        buildForm.reset();
+    });
+}

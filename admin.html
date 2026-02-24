@@ -98,6 +98,7 @@
 
 <body>
     <div class="cursor"></div>
+    <div class="cursor-trail"></div>
 
     <header class="navbar">
         <div class="logo">ADMIN.MODE</div>
@@ -107,6 +108,18 @@
     </header>
 
     <main class="admin-page">
+        <div id="admin-diagnostics" style="
+            padding: 12px 20px;
+            margin-bottom: 20px;
+            background: #111;
+            color: #0f0;
+            font-family: monospace;
+            font-size: 0.8rem;
+            border: 2px solid #333;
+        ">
+            ADMIN_ENGINE: LOADING...
+        </div>
+
         <div class="window telemetry-window" style="margin-bottom: 30px;">
             <div class="window-header">
                 <span class="window-title">SYSTEM_TELEMETRY.LOG</span>
@@ -139,21 +152,91 @@
             </div>
         </div>
 
+        <div class="window" style="margin-bottom: 30px;">
+            <div class="window-header">
+                <span class="window-title">DOWNLOAD_TRACKING_SYSTEM.EXE</span>
+            </div>
+            <div class="window-content">
+                <div class="table-responsive">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>PROJECT</th>
+                                <th>USER_NAME</th>
+                                <th>GMAIL</th>
+                                <th>STATUS</th>
+                                <th>TIMESTAMP</th>
+                            </tr>
+                        </thead>
+                        <tbody id="downloads-body">
+                            <!-- Injected by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="window" style="margin-bottom: 30px;">
+            <div class="window-header">
+                <span class="window-title">USER_FEEDBACK_FEED.LOG</span>
+            </div>
+            <div id="feedback-list" class="window-content" style="max-height:400px; overflow-y:auto;">
+                <!-- Injected by JS -->
+            </div>
+        </div>
+
         <div id="proposals-list">
             <!-- Cards will be injected here -->
         </div>
+
+        <style>
+            .admin-table {
+                width: 100%;
+                border-collapse: collapse;
+                font-family: var(--font-body);
+                font-size: 0.85rem;
+            }
+
+            .admin-table th,
+            .admin-table td {
+                padding: 12px;
+                text-align: left;
+                border-bottom: 1px solid #eee;
+            }
+
+            .admin-table th {
+                background: #f8f8f8;
+                font-weight: 800;
+                text-transform: uppercase;
+            }
+
+            .table-responsive {
+                overflow-x: auto;
+            }
+
+            .feedback-entry {
+                padding: 15px;
+                border-bottom: 2px solid var(--border-black);
+                margin-bottom: 15px;
+                background: #f9f9f9;
+                box-shadow: 3px 3px 0 var(--border-black);
+            }
+
+            .feedback-meta {
+                font-size: 0.75rem;
+                font-weight: 800;
+                color: #666;
+                margin-bottom: 5px;
+            }
+
+            .feedback-text {
+                font-size: 0.95rem;
+                line-height: 1.4;
+            }
+        </style>
     </main>
 
-    <script src="main.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            if (typeof initAdminDashboard === 'function') {
-                initAdminDashboard();
-            } else {
-                document.getElementById('admin-status').textContent = 'SYSTEM_ERROR: BACKEND_NOT_FOUND (DEV_MODE)';
-            }
-        });
-    </script>
+    <script src="main.js" type="module"></script>
 </body>
 
 </html>

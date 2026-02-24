@@ -49,7 +49,7 @@ body {
     background-size: 32px 32px;
     font-family: var(--font-body);
     color: var(--border-black);
-    cursor: none;
+    cursor: default;
     line-height: 1.6;
 }
 
@@ -403,11 +403,13 @@ button,
 }
 
 .btn-primary {
-    background: var(--bg-yellow);
+    background: var(--border-black);
+    color: var(--bg-yellow);
 }
 
 .btn-secondary {
     background: white;
+    color: var(--border-black);
 }
 
 .btn-yellow {
