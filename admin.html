@@ -153,8 +153,10 @@
         </div>
 
         <div class="window" style="margin-bottom: 30px;">
-            <div class="window-header">
+            <div class="window-header" style="display: flex; justify-content: space-between; align-items: center;">
                 <span class="window-title">DOWNLOAD_TRACKING_SYSTEM.EXE</span>
+                <button onclick="window.clearAllDownloads()" class="admin-btn btn-decline"
+                    style="padding: 5px 15px; font-size: 0.7rem; margin-right: 10px;">CLEAR_ALL_RECORDS</button>
             </div>
             <div class="window-content">
                 <div class="table-responsive">
@@ -166,6 +168,7 @@
                                 <th>GMAIL</th>
                                 <th>STATUS</th>
                                 <th>TIMESTAMP</th>
+                                <th>ACTIONS</th>
                             </tr>
                         </thead>
                         <tbody id="downloads-body">

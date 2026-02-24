@@ -3,7 +3,7 @@
    ════════════════════════════════════════════ */
 
 import { db, auth, googleProvider } from './firebase-config.js';
-import { collection, addDoc, getDocs, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+import { collection, addDoc, getDocs, serverTimestamp, deleteDoc, doc, query, writeBatch } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 import { signInWithPopup } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
 // ─── Constants & State ───────────────────────
@@ -343,6 +343,35 @@ function initProjectListeners() {
     }
 }
 
+window.deleteRecord = async function (docId) {
+    if (!confirm('DELETE_RECORD: ARE_YOU_SURE?')) return;
+    try {
+        await deleteDoc(doc(db, "downloads", docId));
+        console.log('RECORD_DELETED:', docId);
+        window.initAdminDashboard();
+    } catch (e) {
+        alert('ERROR: ' + e.message);
+    }
+};
+
+window.clearAllDownloads = async function () {
+    if (!confirm('CAUTION: THIS_WILL_WIPE_ALL_DOWNLOAD_RECORDS. PROCEED?')) return;
+    const diag = document.getElementById('admin-diagnostics');
+    const log = (m) => { if (diag) diag.textContent = m; };
+
+    log('CLEARING_RECORDS...');
+    try {
+        const snapshot = await getDocs(collection(db, "downloads"));
+        const batch = writeBatch(db);
+        snapshot.forEach((d) => batch.delete(d.ref));
+        await batch.commit();
+        log('ALL_RECORDS_CLEARED');
+        window.initAdminDashboard();
+    } catch (e) {
+        log('ERROR_CLEARING: ' + e.message);
+    }
+};
+
 window.initAdminDashboard = async function () {
     const downloadsBody = document.getElementById('downloads-body');
     const feedbackList = document.getElementById('feedback-list');
@@ -353,7 +382,7 @@ window.initAdminDashboard = async function () {
     try {
         const snapshot = await getDocs(collection(db, "downloads"));
         const docs = [];
-        snapshot.forEach(d => docs.push(d.data()));
+        snapshot.forEach(d => docs.push({ id: d.id, ...d.data() }));
         docs.sort((a, b) => (b.timestamp?.toDate() || 0) - (a.timestamp?.toDate() || 0));
 
         if (downloadsBody) {
@@ -364,8 +393,11 @@ window.initAdminDashboard = async function () {
                     <td>${d.userEmail || '—'}</td>
                     <td>${d.verified ? '[VERIFIED]' : '[MANUAL]'}</td>
                     <td>${d.timestamp ? d.timestamp.toDate().toLocaleString() : '—'}</td>
+                    <td>
+                        <button onclick="window.deleteRecord('${d.id}')" class="admin-btn btn-decline" style="padding: 4px 8px; font-size: 0.65rem; box-shadow: 2px 2px 0 black;">DELETE</button>
+                    </td>
                 </tr>
-            `).join('') || '<tr><td colspan="5">NO_DATA</td></tr>';
+            `).join('') || '<tr><td colspan="6">NO_DATA</td></tr>';
         }
 
         const feedbackSnap = await getDocs(collection(db, "feedback"));
