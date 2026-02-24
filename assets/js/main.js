@@ -18,7 +18,7 @@ const projectsData = {
         platform: 'Android / iOS',
         type: 'Community App',
         stack: 'React Native',
-        image: 'icon.png',
+        image: 'assets/images/icon.png',
         description: 'ILA Community is a dedicated event management and engagement platform for the Mizo community. It serves as a central hub for cultural events, local news, and community support systems.',
         tags: ['React Native', 'Firebase', 'Razorpay', 'Leaflet Maps'],
         features: [
@@ -40,7 +40,7 @@ const projectsData = {
         platform: 'Android / iOS',
         type: 'Health & Productivity',
         stack: 'React Native + Skia',
-        image: 'anatomy_pulse.png',
+        image: 'assets/images/anatomy_pulse.png',
         description: 'NOVA maps daily habits to a 3D anatomy model. As you build consistency, different muscle groups and organs glow — making growth visible and motivating.',
         tags: ['React Native', 'TypeScript', 'Skia', 'SVG Animation', 'Async Storage'],
         features: [
@@ -52,11 +52,11 @@ const projectsData = {
         ],
         technical: 'The core engine uses React Native Skia for high-performance SVG manipulation. A custom coordinate mapping system ensures overlays align perfectly across different screen sizes. State is managed through Context API + persistent local storage.',
         screenshots: [
-            { src: 'nova_screens/nova_dashboard.jpg', caption: 'NOVA_DASHBOARD: Visual overview of habit progress.' },
-            { src: 'nova_screens/nova_tasks.jpg', caption: 'HABIT_CALENDAR: Monthly tracking view.' },
-            { src: 'nova_screens/nova_analytics_2.jpg', caption: 'PERFORMANCE_VELOCITY: Real-time tracking.' },
-            { src: 'nova_screens/nova_analytics_1.jpg', caption: 'SYSTEM_BALANCE: Granular analysis.' },
-            { src: 'nova_screens/nova_config.jpg', caption: 'SYSTEM_CONFIG: Advanced local storage management.' }
+            { src: 'assets/images/projects/nova_dashboard.jpg', caption: 'NOVA_DASHBOARD: Visual overview of habit progress.' },
+            { src: 'assets/images/projects/nova_tasks.jpg', caption: 'HABIT_CALENDAR: Monthly tracking view.' },
+            { src: 'assets/images/projects/nova_analytics_2.jpg', caption: 'PERFORMANCE_VELOCITY: Real-time tracking.' },
+            { src: 'assets/images/projects/nova_analytics_1.jpg', caption: 'SYSTEM_BALANCE: Granular analysis.' },
+            { src: 'assets/images/projects/nova_config.jpg', caption: 'SYSTEM_CONFIG: Advanced local storage management.' }
         ],
         github: 'https://github.com/LarssonDev',
         apk: 'apk/nova.apk'
@@ -68,7 +68,7 @@ const projectsData = {
         platform: 'Desktop (Python)',
         type: 'ML Tool',
         stack: 'Python + Scikit-Learn',
-        image: 'spam_remover.jpg',
+        image: 'assets/images/spam_remover.jpg',
         description: 'An inbox hygiene tool applying Naive Bayes ML filters to Gmail accounts, identifying sophisticated phishing and marketing spam that Google\'s built-in filters often miss.',
         tags: ['Python', 'Scikit-Learn', 'Gmail API', 'OAuth2', 'Naive Bayes'],
         features: [
@@ -90,7 +90,7 @@ const projectsData = {
         platform: 'Android / iOS',
         type: 'Multiplayer Game',
         stack: 'Expo + Firebase',
-        image: 'inbawk_board.png',
+        image: 'assets/images/inbawk_board.png',
         description: 'INBAWK brings the atmosphere of a professional card room to mobile. Designed for the Mizo community to enjoy classic and custom card games in a premium, real-time environment.',
         tags: ['React Native', 'Expo', 'Firebase', 'Realtime DB', 'Custom Shaders'],
         features: [
@@ -102,12 +102,12 @@ const projectsData = {
         ],
         technical: 'Built on Expo with heavy focus on landscape UI stability. Real-time sync uses Firebase Realtime Database listener trees. Custom character assets are dynamically tinted to reduce bundle size.',
         screenshots: [
-            'inbawk/inbawk_1.jpg',
-            'inbawk/inbawk_2.jpg',
-            'inbawk/inbawk_3.jpg',
-            'inbawk/inbawk_4.jpg',
-            'inbawk/inbawk_5.jpg',
-            'inbawk/inbawk_6.jpg'
+            'assets/images/projects/inbawk_1.jpg',
+            'assets/images/projects/inbawk_2.jpg',
+            'assets/images/projects/inbawk_3.jpg',
+            'assets/images/projects/inbawk_4.jpg',
+            'assets/images/projects/inbawk_5.jpg',
+            'assets/images/projects/inbawk_6.jpg'
         ],
         github: 'https://github.com/LarssonDev',
         apk: '#'
