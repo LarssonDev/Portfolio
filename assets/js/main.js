@@ -3,8 +3,8 @@
    ════════════════════════════════════════════ */
 
 import { db, auth, googleProvider } from './firebase-config.js';
-import { collection, addDoc, getDocs, serverTimestamp } from "firebase/firestore";
-import { signInWithPopup } from "firebase/auth";
+import { collection, addDoc, getDocs, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+import { signInWithPopup } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
 // ─── Constants & State ───────────────────────
 const VISIT_COUNT_KEY = 'portfolio_visit_count';
