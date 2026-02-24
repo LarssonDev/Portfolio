@@ -617,14 +617,6 @@ button,
     animation: float 3.5s ease-in-out infinite 0.5s;
 }
 
-.sticker-4 {
-    bottom: 12%;
-    right: 4%;
-    font-size: 0.95rem;
-    font-weight: 900;
-    padding: 10px 18px;
-    animation: float 5s ease-in-out infinite;
-}
 
 @keyframes float {
 
