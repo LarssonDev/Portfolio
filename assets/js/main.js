@@ -400,14 +400,26 @@ window.clearAllDownloads = async function () {
     }
 };
 
+window.deleteProposal = async function (docId) {
+    if (!confirm('DELETE_PROPOSAL: ARE_YOU_SURE?')) return;
+    try {
+        await deleteDoc(doc(db, "proposals", docId));
+        window.initAdminDashboard();
+    } catch (e) {
+        alert('ERROR: ' + e.message);
+    }
+};
+
 window.initAdminDashboard = async function () {
     const downloadsBody = document.getElementById('downloads-body');
     const feedbackList = document.getElementById('feedback-list');
+    const proposalsList = document.getElementById('proposals-list');
     const diag = document.getElementById('admin-diagnostics');
     const log = (m) => { if (diag) diag.textContent = m; console.log(m); };
 
     log('CONNECTING...');
     try {
+        // Downloads
         const snapshot = await getDocs(collection(db, "downloads"));
         const docs = [];
         snapshot.forEach(d => docs.push({ id: d.id, ...d.data() }));
@@ -428,6 +440,7 @@ window.initAdminDashboard = async function () {
             `).join('') || '<tr><td colspan="6">NO_DATA</td></tr>';
         }
 
+        // Feedback
         const feedbackSnap = await getDocs(collection(db, "feedback"));
         if (feedbackList) {
             feedbackList.innerHTML = '';
@@ -436,6 +449,41 @@ window.initAdminDashboard = async function () {
                 feedbackList.innerHTML += `<div class="feedback-entry">${data.projectName}: ${data.text}</div>`;
             });
         }
+
+        // Proposals
+        const proposalSnap = await getDocs(collection(db, "proposals"));
+        if (proposalsList) {
+            const pDocs = [];
+            proposalSnap.forEach(d => pDocs.push({ id: d.id, ...d.data() }));
+            pDocs.sort((a, b) => (b.timestamp?.toDate() || 0) - (a.timestamp?.toDate() || 0));
+
+            proposalsList.innerHTML = `
+                <div class="window-header" style="margin-top: 30px; background: #e91e63;">
+                    <span class="window-title">CLIENT_PROPOSALS.LOG</span>
+                </div>
+            ` + (pDocs.map(p => `
+                <div class="proposal-card window" style="margin-top:20px;">
+                    <div class="window-header" style="background:#111; font-size: 0.7rem;">
+                        <span>PROPOSAL_ID: ${p.id}</span>
+                        <span>${p.timestamp ? p.timestamp.toDate().toLocaleString() : 'N/A'}</span>
+                    </div>
+                    <div class="window-content">
+                        <div class="proposal-meta">
+                            <span>CLIENT: ${p.clientName}</span>
+                            <span>DOMAIN: ${p.projectType}</span>
+                            <span>BUDGET: ${p.budget}</span>
+                        </div>
+                        <div class="proposal-details">
+                            <p>${p.requirements}</p>
+                        </div>
+                        <div class="admin-actions">
+                            <button onclick="window.deleteProposal('${p.id}')" class="admin-btn btn-decline" style="font-size: 0.7rem;">DELETE_PROPOSAL</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('') || '<div class="window-content">NO_PROPOSALS_RECEIVED</div>');
+        }
+
         log('COMPLETE');
     } catch (e) {
         log('ERROR: ' + e.message);
@@ -458,8 +506,32 @@ const buildForm = document.getElementById('build-form');
 if (buildForm) {
     buildForm.addEventListener('submit', async (e) => {
         e.preventDefault();
+        const btn = buildForm.querySelector('button');
         const status = document.getElementById('status-msg');
-        if (status) { status.style.display = 'block'; status.textContent = 'PROPOSAL_LOCKED_IN!'; }
-        buildForm.reset();
+        btn.disabled = true;
+
+        const proposalData = {
+            clientName: document.getElementById('client-name').value,
+            projectType: document.getElementById('project-type').value,
+            budget: document.getElementById('budget').value,
+            requirements: document.getElementById('requirements').value,
+            timestamp: serverTimestamp()
+        };
+
+        try {
+            await addDoc(collection(db, "proposals"), proposalData);
+            if (status) {
+                status.style.display = 'block';
+                status.textContent = 'PROPOSAL_LOCKED_IN! I_WILL_REACH_OUT_SOON.';
+            }
+            buildForm.reset();
+        } catch (error) {
+            if (status) {
+                status.style.display = 'block';
+                status.textContent = 'ERROR_UPLOADING. PLEASE_TRY_GMAIL.';
+            }
+        } finally {
+            btn.disabled = false;
+        }
     });
 }
