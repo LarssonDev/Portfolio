@@ -83,7 +83,7 @@ const projectsData = {
         screenshots: [],
         github: 'https://github.com/LarssonCodes',
         apk: '#',
-        demo: 'https://larssoncodes-gmail-spam-remover.streamlit.app'
+        demo: 'https://gmailspamremover.streamlit.app'
     },
     'inbawk': {
         title: 'INBAWK CARDS',
