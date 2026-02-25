@@ -65,23 +65,25 @@ const projectsData = {
         title: 'GMAIL SPAM REMOVER',
         windowTitle: 'SPAM_FILTER.PY',
         tagline: 'ML-powered Gmail cleaner that catches phishing and spam that standard filters miss — built with Naive Bayes.',
-        platform: 'Desktop (Python)',
+        platform: 'Web / Streamlit',
         type: 'ML Tool',
         stack: 'Python + Scikit-Learn',
         image: 'assets/images/spam_remover.jpg',
         description: 'An inbox hygiene tool applying Naive Bayes ML filters to Gmail accounts, identifying sophisticated phishing and marketing spam that Google\'s built-in filters often miss.',
-        tags: ['Python', 'Scikit-Learn', 'Gmail API', 'OAuth2', 'Naive Bayes'],
+        tags: ['Python', 'Scikit-Learn', 'Gmail API', 'OAuth2', 'Naive Bayes', 'Streamlit'],
         features: [
             'Multinomial Naive Bayes classification engine',
             'Secure Google OAuth 2.0 authentication flow',
             'Real-time scanning of unread messages via Gmail API',
             'Automated batch organisation into Trash / Spam folders',
-            'Model serialisation for rapid cold-start classification'
+            'Model serialisation for rapid cold-start classification',
+            'Interactive Streamlit dashboard with live scan results'
         ],
-        technical: 'Uses a Scikit-Learn pipeline for text vectorisation (CountVectorizer) and classification. Processes data locally to ensure privacy. Integrates with the Gmail API via google-auth-oauthlib.',
+        technical: 'Uses a Scikit-Learn pipeline for text vectorisation (CountVectorizer) and classification. Processes data locally to ensure privacy. Integrates with the Gmail API via google-auth-oauthlib. Deployed as an interactive Streamlit web app.',
         screenshots: [],
         github: 'https://github.com/LarssonCodes',
-        apk: '#'
+        apk: '#',
+        demo: 'https://larssoncodes-gmail-spam-remover.streamlit.app'
     },
     'inbawk': {
         title: 'INBAWK CARDS',
@@ -262,10 +264,17 @@ window.initProjectDetail = async function () {
     const githubLink = document.getElementById('btn-github');
     if (githubLink) githubLink.href = project.github;
 
-    // Handle Download button availability
+    // Handle primary action button
     const trigger = document.getElementById('btn-download-trigger');
     if (trigger) {
-        if (!project.apk || project.apk === '#') {
+        if (project.demo) {
+            // Show "View Demo" button — opens Streamlit app in new tab
+            trigger.innerHTML = `<i data-lucide="external-link" style="width:16px;height:16px;"></i> VIEW_DEMO`;
+            trigger.classList.remove('btn-disabled');
+            trigger.style.opacity = '1';
+            trigger.style.cursor = 'pointer';
+            trigger.onclick = () => window.open(project.demo, '_blank');
+        } else if (!project.apk || project.apk === '#') {
             trigger.innerHTML = `<i data-lucide="clock" style="width:16px;height:16px;"></i> COMING_SOON`;
             trigger.classList.add('btn-disabled');
             trigger.style.opacity = '0.5';
@@ -316,7 +325,8 @@ function initProjectListeners() {
 
     if (trigger && modal) {
         trigger.addEventListener('click', () => {
-            if (project.apk && project.apk !== '#') {
+            // Only open modal for APK downloads (not demo links — those open inline via onclick)
+            if (!window.currentProject?.demo && window.currentProject?.apk && window.currentProject.apk !== '#') {
                 modal.style.display = 'flex';
             }
         });
