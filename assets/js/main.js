@@ -446,6 +446,13 @@ window.initAdminDashboard = async function () {
     const log = (m) => { if (diag) diag.textContent = m; console.log(m); };
 
     log('CONNECTING...');
+
+    // Populate visit count from localStorage
+    const totalVisitsEl = document.getElementById('total-visits');
+    if (totalVisitsEl) {
+        totalVisitsEl.textContent = localStorage.getItem(VISIT_COUNT_KEY) || '0';
+    }
+
     try {
         // Downloads
         const snapshot = await getDocs(collection(db, "downloads"));
@@ -498,6 +505,7 @@ window.initAdminDashboard = async function () {
                     <div class="window-content">
                         <div class="proposal-meta">
                             <span>CLIENT: ${p.clientName}</span>
+                            <span>📞 ${p.clientPhone || 'N/A'}</span>
                             <span>DOMAIN: ${p.projectType}</span>
                             <span>BUDGET: ${p.budget}</span>
                         </div>
@@ -540,6 +548,7 @@ if (buildForm) {
 
         const proposalData = {
             clientName: document.getElementById('client-name').value,
+            clientPhone: document.getElementById('client-phone').value,
             projectType: document.getElementById('project-type').value,
             budget: document.getElementById('budget').value,
             requirements: document.getElementById('requirements').value,
